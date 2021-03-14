@@ -45,7 +45,7 @@
   Cart is empty
 {% endif %} -->
 
-<main class="cart">
+<div class="cart">
   <div class="cart-items">
     <h1 class="heading">{{ cart.item_count }} {{ cart.item_count | pluralize: 'шт.', 'шт.' }}</h1>
     <div class="cart-item">
@@ -90,5 +90,5 @@
       <a href="/collections/other-objects" class="black-button black-button_back-to-all">В каталог</a>
     </div>
   </form>
-</main>
+</div>
 
