@@ -1,4 +1,4 @@
-<main>
+<!-- TEXT INFORMATION -->
 <div class="text-page text-page_divided text-page_brand">
   <div class="text-page__left-half">
     <h1 class="heading">{{ collection.title }}</h1>
@@ -10,59 +10,53 @@
 
 <!-- FILTERS -->
 <div class="filters">
-  <label class="filters__filter">
-    <input class="filters__true-radio" type="radio" name="filter">
-    <a class="filters__fake-radio" href="{{ collection.url }}?sort_by=created-descending">
-      НОВИНКИ
-    </a>
-  </label>
-  <label class="filters__filter">
-    <input class="filters__true-radio" type="radio" name="filter">
-    <a class="filters__fake-radio" href="{{ collection.url }}?sort_by=price-ascending">
-      МИНИМАЛЬНАЯ&nbsp;ЦЕНА
-    </a>
-  </label>
-  <label class="filters__filter">
-    <input class="filters__true-radio" type="radio" name="filter">
-    <a class="filters__fake-radio" href="{{ collection.url }}?sort_by=price-descending">
-      МАКСИМАЛЬНАЯ&nbsp;ЦЕНА
-    </a>
-  </label>
+  <a id="filter-new" class="filters__filter" href="{{ collection.url }}?sort_by=created-descending">
+    <span id="filter-new-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
+    НОВИНКИ
+  </a>
+  <a id="filter-min-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-ascending">
+    <span id="filter-min-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
+    МИНИМАЛЬНАЯ&nbsp;ЦЕНА
+  </a>
+  <a id="filter-max-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-descending">
+    <span id="filter-max-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
+    МАКСИМАЛЬНАЯ&nbsp;ЦЕНА
+  </a>
 </div>
 
+<!-- ITEMS CONTAINER -->
 <div class="grid-container">
   <!-- {% assign grid_item_width = 'wide--one-fifth large--one-quarter medium-down--one-half' %} -->
   <!-- {%- assign product_width = 319 -%} -->
   {% for product in collection.products %}
-    {% assign featured = product %}
-    <div class="grid__item {{grid_item_width}}">
-      {% include 'product-grid-item' %}
-    </div>
+  {% assign featured = product %}
+  <div class="grid__item {{grid_item_width}}">
+    {% include 'product-grid-item' %}
+  </div>
   {% else %}
 </div>
 
 {% if shop.products_count == 0 %}
-  <div class="grid__item card card_square">
-    <div class="helper-section">
-      <div class="grid-uniform helper-content{% if section.settings.center_grid_link %} text-center{% endif %}">
-        {% for i in (1..8) %}
-          <div class="grid__item one-half post-large--one-quarter">
-            <a href="/admin/products" class="grid-link">
-              <span class="grid-link__image grid-link__image--product">
-                <span class="grid-link__image-centered">
-                </span>
-              </span>
-              <p class="card__name">{{ 'product_title' | t }}</p>
-            </a>
-          </div>
-        {% endfor %}
+<div class="grid__item card card_square">
+  <div class="helper-section">
+    <div class="grid-uniform helper-content{% if section.settings.center_grid_link %} text-center{% endif %}">
+      {% for i in (1..8) %}
+      <div class="grid__item one-half post-large--one-quarter">
+        <a href="/admin/products" class="grid-link">
+          <span class="grid-link__image grid-link__image--product">
+            <span class="grid-link__image-centered">
+            </span>
+          </span>
+          <p class="card__name">{{ 'product_title' | t }}</p>
+        </a>
       </div>
+      {% endfor %}
     </div>
   </div>
-    {% else %}
-      <div class="grid__item">
-        <p><em>{{ 'collections.general.no_matches' | t }}</em></p>
-      </div>
+</div>
+{% else %}
+<div class="grid__item">
+  <p><em>{{ 'collections.general.no_matches' | t }}</em></p>
+</div>
 {% endif %}
 {% endfor %}
-</main>

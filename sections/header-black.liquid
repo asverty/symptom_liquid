@@ -28,7 +28,7 @@
       ПОИСК
     </button>
 		<a id="header-cart-button" class="header__button header__button_cart" href="/cart">
-			<span id="cart-outline" class="header__button-outline"></span>
+			<span id="cart-outline" class="header__button-outline header__button-outline_hidden"></span>
       КОРЗИНА({{ cart.item_count | prepend: '0' }})
 		</a>
 	</div>
@@ -343,6 +343,6 @@
   </div>
 </div>
 
-{{ 'common.js' | asset_url | script_tag }}
-{{ 'index.js' | asset_url | script_tag }}
-{{ 'cart.js' | asset_url | script_tag }}
+<!-- {{ 'common.js' | asset_url | script_tag }}
+{{ 'index.js' | asset_url | script_tag }} -->
+<!-- {{ 'cart.js' | asset_url | script_tag }} -->
