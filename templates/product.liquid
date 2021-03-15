@@ -67,10 +67,19 @@
 
     {% if product.title != 'Подарочный сертификат' %}
       <h4 class="item__radio-heading">Выберите размер:</h4>
+      <p class="item__preorder-info-variants">(OS = one size)</p>
     {% else %}
-      <h4 class="item__radio-heading">Выберите сумму сертификата:</h4>
+      <h4 class="item__radio-heading-variants">Выберите сумму сертификата:</h4>
+      <p class="item__preorder-info-variants">(k = 1000 руб)</p>
     {% endif %}
 
+    {% if product.variant == 'Левая' %}
+      {{ 'side-left.png' | asset_img_url: 'master' }}
+      {% elsif product.variant == 'Правая' %}
+      {{ 'side-right.png' | asset_img_url: 'master' }}
+    {% endif %}
+
+    {% form "product", product %}
     <div class="round-sizes">
       {% for variant in product.variants %}
         {% if variant.available %}
@@ -98,10 +107,13 @@
                 <option
                   class="item__variants-padding"
                   disabled="disabled">
-                    {{ variant.title }}
+                    {{ variant.title  }}
                 </option>
               </span>
           </label>
+        {% if variant.title in collection == 'Default title' %}
+          {{ variant.title | 'OS' }}
+        {% endif %}
         {% endif %}
       {% endfor %}
     </div>
@@ -118,16 +130,16 @@
 {% endcomment %}
 
       <button class="black-button"{{ routes.cart_add_url }} type="button"
+      method="post" action="/cart/add" enctype="multipart/form-data"
       >В корзину</button>
+    {% endform %}
 
     <p class="item__preorder-info">
     Если размер нельзя выбрать - он отсутсвует в наличии. Но вы можете оформить предзаказ в нашем
-    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button><br>
-    Свяжитесь с нами, чтобы обсудить все важные детали.<br>
-    N.B.<br>
-    OS = one size.<br>
-    k = 1000 руб.<br>
+    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button> Свяжитесь с нами, чтобы обсудить<br>все важные детали.<br>
     </p>
     <!-- <button class="circle-like-button"></button> -->
   </div>
 </div>
+
+

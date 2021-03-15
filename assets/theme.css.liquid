@@ -210,7 +210,7 @@ button:hover, a:hover {
 
 .black-button_cart-btn-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .black-button_inactive {
@@ -1024,18 +1024,6 @@ button:hover, a:hover {
 
 .header__button_white {
   color: #FFFFFF;
-}
-
-.header__button_login {
-  margin-top: -2px;
-}
-
-.header__button_finder {
-  margin-top: -3px;
-}
-
-.header__button_cart {
-  margin-top: -4px;
 }
 
 .header__button-outline {
@@ -2421,8 +2409,18 @@ button:hover, a:hover {
   text-transform: uppercase;
 }
 
+.item__radio-heading-variants {
+  margin-top: 24px;
+  margin-bottom: 1px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
 @media screen and (max-width: 1580px) {
   .item__radio-heading {
+    font-size: 14px;
+  }
+  .item__radio-heading-variants {
     font-size: 14px;
   }
 }
@@ -2431,8 +2429,15 @@ button:hover, a:hover {
   margin-top: calc(25% + 48px);
 }
 
+.item__radio-heading-variants:first-of-type {
+  margin-top: calc(25% + 48px);
+}
+
 @media screen and (max-height: 900px) {
   .item__radio-heading:first-of-type {
+    margin-top: 48px;
+  }
+  .item__radio-heading-variants:first-of-type {
     margin-top: 48px;
   }
 }
@@ -2450,6 +2455,11 @@ button:hover, a:hover {
   margin-top: 60%;
 }
 
+.item__preorder-info-variants {
+  padding-bottom: 12px;
+  font-size: 14px;
+}
+
 .item__preorder-info {
   padding-top: 25px;
   font-size: 14px;
@@ -2457,6 +2467,10 @@ button:hover, a:hover {
 
 @media screen and (max-width: 1580px) {
   .item__preorder-info {
+    font-size: 12px;
+  }
+
+  .item__preorder-info-variants {
     font-size: 12px;
   }
 }
