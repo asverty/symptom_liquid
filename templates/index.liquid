@@ -6,7 +6,7 @@
     <a href="/collections/новинки">
       <div class="section__info">
         <h2 class="section__heading">НОВИНКИ</h2>
-        <p class="section__paragraph section__paragraph_bottom">взгляните на наши новые украшения
+        <p class="section__paragraph section__paragraph_bottom section-text">взгляните на наши новые украшения
         </p>
       </div>
     </a>
@@ -38,15 +38,14 @@
     <a href="/products/сертификат-свободного-номинала">
       <div class="section__info">
         <h2 class="section__heading">Подарочный сертификат</h2>
-        <p class="section__paragraph section__paragraph_bottom section__paragraph_short">подарочный сертификат не имеет срока действия и доступен для использования на сайте или в наших магазинах</p>
+        <p class="section__paragraph section__paragraph_bottom section__paragraph_short">подарочный сертификат не имеет
+          срока действия и доступен для использования на сайте или в наших магазинах</p>
       </div>
     </a>
   </section>
 </main>
 
 {% section 'counter' %}
-
-{% section 'footer' %}
 
 <!-- COOKIES -->
 <div id="cookies-popup" class="cookies cookies_hidden">
@@ -61,16 +60,3 @@
   </p>
   <button id="cookies-close-button" class="cookies__close-button"></button>
 </div>
-
-{{ 'fullpage.js' | asset_url | stylesheet_tag }}
-{{ 'fullpage.min.css' | asset_url | stylesheet_tag }}
-{{ 'fullpage.min.css.map' | asset_url | stylesheet_tag }}
-{{ 'fullpage.extensions.min.js' | asset_url | script_tag }}
-{{ 'common.js' | asset_url | script_tag }}
-{{ 'index.js' | asset_url | script_tag }}
-{{ 'easings.min.js' | asset_url | script_tag }}
-{{ 'easings.min.js.map' | asset_url | script_tag }}
-{{ 'scrolloverflow.js' | asset_url | script_tag }}
-{{ 'scrolloverflow.min.js' | asset_url | script_tag }}
-{{ 'scrolloverflow.min.js.map' | asset_url | script_tag }}
-{{ 'swiped-events.min.js' | asset_url | script_tag }}

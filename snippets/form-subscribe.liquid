@@ -1,0 +1,34 @@
+<!-- FORM: SUBSCRIBE -->
+<form id="subscribe-form" class="form form_hidden" novalidate>
+    <h3 class="heading heading_form">Давайте познакомимся</h3>
+    <div class="form__grid">
+        <div class="form__fraction form__left-half">
+        <div class="input input_form">
+            <h3 class="input__heading">E-mail:</h3>
+            <input id="subscribe-email" name="subscribe-email" class="input__field" type="email" value=""
+            placeholder="your@dolphine.com" required>
+            <span id="subscribe-email-error" class="input__error"></span>
+        </div>
+        </div>
+        <div class="form__fraction form__right-half">
+        <div class="input input_form">
+            <h3 class="input__heading">Ваше имя:</h3>
+            <input id="subscribe-name" name="subscribe-name" class="input__field" type="text" minlength="2" maxlength="20"
+            value="" placeholder="Дженгу" required>
+            <span id="subscribe-name-error" class="input__error"></span>
+        </div>
+        <label class="checkbox checkbox_form">
+            <div>
+            <input id="subscribe-rules-agreement" name="subscribe-rules-agreement"
+                class="checkbox__true-checkbox checkbox__true-checkbox_required" type="checkbox" value="agreed" checked
+                required>
+            <div class="checkbox__fake-checkbox"></div>
+            </div>
+            <p class="checkbox__description">Нажимая кнопку «Подписаться», вы даете согласие на обработку ваших
+            персональных данных согласно положениям <a class="paragraph__link" href="/pages/confidential"> по
+                ссылке.</a></p>
+        </label>
+        <button class="black-button submit-button" type="submit">Подписаться</button>
+        </div>
+    </div>
+</form>

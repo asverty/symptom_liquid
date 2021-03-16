@@ -156,21 +156,24 @@ footer.addEventListener('wheel', event => {
 });
 
 // закрываем футер кликом по секции
-lastSection.addEventListener('click', () => {
-	if (!footer.classList.contains('footer_hidden')) hideFooter();
+lastSection.addEventListener('click', (event) => {
+	if (!footer.classList.contains('footer_hidden')) {
+		event.preventDefault();
+		hideFooter();
+	}
 });
 
 // закрываем футер кликом по меню
 // ВАЖНО: переменная menus берётся из common.js
-menus.forEach(menu => {
-	menu.addEventListener('click', () => hideFooter());
-});
+// menus.forEach(menu => {
+// 	menu.addEventListener('click', () => hideFooter());
+// });
 
 // закрываем футер кликом по форме
 // ВАЖНО: переменная forms берётся из common.js
-forms.forEach(form => {
-	form.addEventListener('click', () => hideFooter());
-});
+// forms.forEach(form => {
+// 	form.addEventListener('click', () => hideFooter());
+// });
 
 
 

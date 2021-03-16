@@ -1,3 +1,34 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ПОКА НЕ УДАЛЯЮ ИЗ ПРОЕКТА, НО ФАЙЛ НИКУДА НЕ ПОДКЛЮЧЕН
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // HEADER
 
 const main = document.querySelector('main');
@@ -66,12 +97,15 @@ function showPopup(popup, hidingClass) {
 
 function hideAllPopups() {
 	menus.forEach(menu => menu.classList.add('menu_hidden'));
+	// для finderMenu приходится прописывать логику отдельно, поскольку на него нельзя повесить
+	// класс menu без поломки вёрстки, а соответственно он не входит в нодлист menus
+	finderMenu.classList.add('menu_hidden');
 	forms.forEach(form => form.classList.add('form_hidden'));
 	hideAllOutlines();
 	headerTurnsWhite();
 };
 
-if(headerBrandsButton){
+if (headerBrandsButton) {
 	headerBrandsButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(brandsOutline);
@@ -79,7 +113,7 @@ if(headerBrandsButton){
 	});
 };
 
-if(headerCategoriesButton){
+if (headerCategoriesButton) {
 	headerCategoriesButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(categoriesOutline);
@@ -87,7 +121,7 @@ if(headerCategoriesButton){
 	});
 };
 
-if(headerSubscribeButton){
+if (headerSubscribeButton) {
 	headerSubscribeButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(subscribeOutline);
@@ -95,7 +129,7 @@ if(headerSubscribeButton){
 	});
 };
 
-if(headerLogInButton){
+if (headerLogInButton) {
 	headerLogInButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(logInOutline);
@@ -103,7 +137,7 @@ if(headerLogInButton){
 	});
 };
 
-if(signInButton){
+if (signInButton) {
 	signInButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(logInOutline);
@@ -111,7 +145,7 @@ if(signInButton){
 	});
 };
 
-if(recoveryButton){
+if (recoveryButton) {
 	recoveryButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(logInOutline);
@@ -119,7 +153,7 @@ if(recoveryButton){
 	});
 };
 
-if(headerFinderButton){
+if (headerFinderButton) {
 	headerFinderButton.addEventListener('click', () => {
 		hideAllPopups();
 		showOutline(finderOutline);
@@ -127,24 +161,36 @@ if(headerFinderButton){
 	});
 };
 
-if(headerCartButton){
+if (headerCartButton) {
 	headerCartButton.addEventListener('click', () => {
 		hideAllOutlines();
 		showOutline(cartOutline);
 	});
 };
 
-// закрываем меню и футеры кликом по основному разделу
+// закрываем меню и формы кликом по основному разделу
 document.addEventListener('keydown', event => {
 	if (event.key == 'Escape') hideAllPopups();
 });
 
-// закрываем меню и футеры кликом по основному разделу
-if(main){
-	main.addEventListener('click', () => hideAllPopups());
+// закрываем меню и формы кликом по основному разделу
+if (main) {
+	main.addEventListener('click', (event) => {
+		// пока что сделал проверку максимально "втупую", ибо сроки горят
+		if ((!brandsMenu.classList.contains('menu_hidden'))
+			|| (!categoriesMenu.classList.contains('menu_hidden'))
+			|| (!finderMenu.classList.contains('menu_hidden'))
+			|| (!subscribeForm.classList.contains('form_hidden'))
+			|| (!logInForm.classList.contains('form_hidden'))
+			|| (!signInForm.classList.contains('form_hidden'))
+			|| (!passwordRecoveryForm.classList.contains('form_hidden'))) {
+			event.preventDefault();
+		}
+		hideAllPopups();
+	});
 };
 
-// закрываем меню и футеры кликом по футеру
+// закрываем меню и формы кликом по футеру
 document.addEventListener('click', event => {
 	let isFooter = event.target.closest('.footer');
 	if (isFooter) hideAllPopups();
@@ -263,7 +309,7 @@ brandsInMenu.forEach(brand => {
 	let brandLink = document.querySelector(brand.menuLink);
 	let brandImage = document.querySelector(brand.menuImage);
 	let allImages = document.querySelectorAll('.menu__image');
-	if(brandLink){
+	if (brandLink) {
 		brandLink.addEventListener('mouseover', () => {
 			allImages.forEach(image => image.classList.add('menu__image_hidden'));
 			brandImage.classList.remove('menu__image_hidden');
@@ -349,7 +395,7 @@ categoriesInMenu.forEach(category => {
 	let categoryLink = document.querySelector(category.menuLink);
 	let categoryImage = document.querySelector(category.menuImage);
 	let allCategories = document.querySelectorAll('.menu__image');
-	if(categoryLink){
+	if (categoryLink) {
 		categoryLink.addEventListener('mouseover', () => {
 			allCategories.forEach(image => image.classList.add('menu__image_hidden'));
 			categoryImage.classList.remove('menu__image_hidden');
@@ -474,3 +520,28 @@ const subscribeFormValidator = new FormValidatorExtended('#subscribe-form');
 const signInFormValidator = new FormValidatorExtended('#signin-form');
 subscribeFormValidator.enableValidation();
 signInFormValidator.enableValidation();
+
+
+
+
+
+// ЧАТРА
+const chatraButton = document.querySelector('#open_chatra');
+chatraButton.addEventListener('click', () => {
+	const chatraWindow = document.querySelector('.chatra--webkit');
+	chatraWindow.classList.contains('chatra--expanded')
+		? Chatra('minimizeWidget')
+		: Chatra('openChat', true)
+});
+
+
+
+
+
+// ФИЛЬТРЫ КАТЕГОРИЙ
+const filterNew = document.querySelector('#filter-new');
+const filterMinPrice = document.querySelector('#filter-min-price');
+const filterMaxPrice = document.querySelector('#filter-max-price');
+const filterNewOutline = document.querySelector('#filter-new-outline');
+const filterMinPriceOutline = document.querySelector('#filter-min-price-outline');
+const filterMaxPriceOutline = document.querySelector('#filter-max-price-outline');

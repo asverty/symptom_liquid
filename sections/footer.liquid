@@ -1,29 +1,27 @@
 <footer class="footer footer_hidden">
   <nav class="footer__left-half">
     <ul class="footer__nav-list">
-      <li class="footer__nav-list-element"><a href="/pages/about-us"
-          class="footer__nav-link">О нас</a>
+      <li class="footer__nav-list-element"><a href="/pages/about-us" class="footer__nav-link">О нас</a>
       </li>
-      <li class="footer__nav-list-element"><a href="/pages/contacts"
-          class="footer__nav-link">Контакты</a>
+      <li class="footer__nav-list-element"><a href="/pages/contacts" class="footer__nav-link">Контакты</a>
       </li>
       <li class="footer__nav-list-element footer__nav-link">Чат:
       </li>
-      <button id="open_chatra" onclick="Chatra('openChat', true)"></button>
+      <button class="footer__chatra-button"></button>
+      <!-- <button id="open_chatra" onclick="Chatra('openChat', true)"></button> -->
     </ul>
     <ul class="footer__nav-list footer__contacts">
-      <li class="footer__nav-list-element"><a href="/pages/waranty-and-returns"
-          class="footer__nav-link">Гарантия и возврат</a></li>
-      <li class="footer__nav-list-element"><a href="/pages/shipping-and-payment"
-          class="footer__nav-link">Доставка и оплата</a></li>
-      <li class="footer__nav-list-element"><a href="/pages/care-for-jewelry"
-          class="footer__nav-link">Уход за украшениями</a></li>
+      <li class="footer__nav-list-element"><a href="/pages/waranty-and-returns" class="footer__nav-link">Гарантия и
+          возврат</a></li>
+      <li class="footer__nav-list-element"><a href="/pages/shipping-and-payment" class="footer__nav-link">Доставка и
+          оплата</a></li>
+      <li class="footer__nav-list-element"><a href="/pages/care-for-jewelry" class="footer__nav-link">Уход за
+          украшениями</a></li>
     </ul>
     <ul class="footer__nav-list">
-      <li class="footer__nav-list-element"><a href="/pages/offer"
-          class="footer__nav-link">Оферта</a></li>
-      <li class="footer__nav-list-element"><a href="/pages/confidential"
-          class="footer__nav-link">Конфиденциальность</a></li>
+      <li class="footer__nav-list-element"><a href="/pages/offer" class="footer__nav-link">Оферта</a></li>
+      <li class="footer__nav-list-element"><a href="/pages/confidential" class="footer__nav-link">Конфиденциальность</a>
+      </li>
     </ul>
   </nav>
 
@@ -38,39 +36,41 @@
     </li>
     <li class="footer__contact">
       <h3 class="footer__contact-type">Подписаться на нас:</h3>
-      <a class="footer__contact-data" href="https://www.instagram.com/symptom.jewelry/">INSTAGRAM</a>
+      <a class="footer__contact-data" href="https://www.instagram.com/symptom.jewelry/" target="_blank">INSTAGRAM</a>
     </li>
   </ul>
 </footer>
 
 <!-- Chatra {literal} -->
 <script>
-  (function(d, w, c) {
-      w.ChatraID = 'KMkqqkL7L6Xodz5x2';
-      var s = d.createElement('script');
-      w[c] = w[c] || function() {
-          (w[c].q = w[c].q || []).push(arguments);
-      };
-      s.async = true;
-      s.src = 'https://call.chatra.io/chatra.js';
-      if (d.head) d.head.appendChild(s);
-  })(document, window, 'Chatra');
+  window.ChatraSetup = {
+    buttonStyle: 'round',
+    buttonSize: 60,
+    zIndex: -90,
+  };
 </script>
-<!-- /Chatra {/literal} -->
 
-<!-- <div id="open_chatra" class="chatra--webkit chatra--style-tab chatra--side-bottom chatra--pos-left chatra--visible" id="chatra" data-turbolinks-permanent="" style="width: 241px; height: 40px; transform: none; z-index: 1;">
-  <div id="chatra__iframe-wrapper">
-    <iframe frameborder="0" id="chatra__iframe" allowtransparency=true title="Chatra live chat" allow="autoplay" src="https://chat.chatra.io/#hostId=KMkqqkL7L6Xodz5x2&amp;mode=widget&amp;clientId=1EfRTJlFlg6m3rXdb3EObJg9NEq8Js1cpn1k2WF3&amp;lang=ru&amp;currentPage=https%3A%2F%2Fsymptom-msk.myshopify.com%2F%3F_ab%3D0%26_fd%3D0%26_sc%3D1%26key%3D8d429543e63892218ac846a84a10c1672592118fb2179b36543134477a01280d&amp;currentPageTitle=%D0%A3%D0%BA%D1%80%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B4%D0%BB%D1%8F%20%D1%82%D0%B5%D1%85%2C%20%D0%BA%D0%BE%D0%BC%D1%83%20%D1%81%D0%BA%D1%83%D1%87%D0%BD%D0%BE%20%D0%B1%D1%8B%D1%82%D1%8C%20%D1%81%D0%BE%D0%B2%D0%B5%D1%80%D1%88%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC&amp;prevPage=&amp;referrer=" style="width: 380px; height: 600px; position: absolute;">
-    </iframe>
-  </div>
-</div> -->
+<script>
+  (function (d, w, c) {
+    w.ChatraID = 'KMkqqkL7L6Xodz5x2';
+    var s = d.createElement('script');
+    w[c] = w[c] || function () {
+      (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+  })(document, window, 'Chatra');
+
+
+</script>
 
 {% if shop.customer_accounts_enabled %}
 {% if customer %}
-  <a href="/account">account</a>
-  {{ 'log out'  | customer_logout_link }}
+<a href="/account">account</a>
+{{ 'log out' | customer_logout_link }}
 {% else %}
-  {{ 'log in ' | customer_login_link }}
-  {{ 'register' | customer_register_link }}
+{{ 'log in ' | customer_login_link }}
+{{ 'register' | customer_register_link }}
 {% endif %}
 {% endif %}

@@ -1,34 +1,69 @@
 <!DOCTYPE html>
+
 <head>
   <title>{{ page_title }}</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <!-- <meta name="format-detection" content="telephone=no"> -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_img_url: '32x32' }}" type="image/ico">
   <meta name="format-detection" content="telephone=no">
   <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="shortcut icon" href="{{ 'favicon.ico' | asset_img_url: '32x32' }}" type="image/ico">
+  {% if template == 'index' %}
+  {{ 'fullpage.css' | asset_url | stylesheet_tag }}
+  {% endif %}
   {{ 'theme.css' | asset_url | stylesheet_tag }}
   {{ content_for_header }}
 </head>
 
 <body>
 
-{% if template == 'index' %}
+  <!-- HEADER -->
+  {% if template == 'index' %}
   {% section 'header' %}
-{% else %}
+  {% else %}
   {% section 'header-black' %}
-{% endif %}
+  {% endif %}
 
+  <!-- PAGE CONTENT -->
+  <main>
+    {{ content_for_layout }}
+  </main>
 
-<main>
-  {{ content_for_layout }}
-</main>
+  <!-- FOOTER -->
+  {% section 'footer' %}
 
-{% section 'footer' %}
+  <!-- COMMON SCRIPTS -->
+  {{ 'header.js' | asset_url | script_tag }}
+  {{ 'brands-menu.js' | asset_url | script_tag }}
+  {{ 'categories-menu.js' | asset_url | script_tag }}
+  {{ 'validation.js' | asset_url | script_tag }}
+  {{ 'chatra.js' | asset_url | script_tag }}
+
+  <!-- SCRIPTS FOR INDEX -->
+  {% if template == 'index' %}
+  {{ 'fullpage.js' | asset_url | script_tag }}
+  {{ 'index.js' | asset_url | script_tag }}
+  {{ 'swiped-events.min.js' | asset_url | script_tag }}
+  {% endif %}
+
+  <!-- SCRIPTS FOR COLLECTIONS -->
+  {% if template == 'collection' %}
+  {{ 'collection.js' | asset_url | script_tag }}
+  {% endif %}
+
+  <!-- SCRIPTS FOR PRODUCT -->
+  {% if template == 'product' %}
+  {{ 'siema.js' | asset_url | script_tag }}
+  {{ 'product.js' | asset_url | script_tag }}
+  {% endif %}
+
+  <!-- SCRIPTS FOR CART -->
+  {% if template == 'cart' %}
+  {{ 'cart.js' | asset_url | script_tag }}
+  {% endif %}
 
 </body>
 

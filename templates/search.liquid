@@ -1,18 +1,22 @@
-{% paginate search.results by 100 %}
-<div class="text-page text-page_divided text-page_brand">
-  <form action="/search" method="get" role="search" class="search__result">
-    <input type="search" name="q" value="{{ search.terms | escape }}" class="heading">
-  </form>
-</div>
-<div class="grid-container">
-  {% if search.performed %}
-    {% for product in search.results %}
-      {% for product in collection.products %}
+{% paginate search.results by 120 %}
+
+  <div class="text-page text-page_divided text-page_brand">
+    <form action="/search" method="get" role="search" class="search__result">
+      <input type="search" name="q" value="{{ search.terms | escape }}" class="heading">
+    </form>
+  </div>
+
+  <div class="grid-container">
+    {% if search.performed %}
+      {% for product in search.results %}
         {% assign featured = product %}
-        <div class="grid__item {{grid_item_width}}">
-          {% include 'product-grid-item' %}
-        </div>
-    {% else %}
-      <span class="search-result__text">Мы&nbsp;ничего&nbsp;не&nbsp;нашли:&nbsp;(</span>
-    {% endfor %}
+          <div class="grid__item {{grid_item_width}}">
+            {% include 'product-grid-item' %}
+          </div>
+      {% else %}
+        <span class="search-result__text">Мы&nbsp;ничего&nbsp;не&nbsp;нашли:&nbsp;(</span>
+      {% endfor %}
+    {% endif %}
 </div>
+
+{% endpaginate %}

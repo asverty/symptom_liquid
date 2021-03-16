@@ -1,0 +1,26 @@
+{% form 'customer_login' %}
+  <div id="login-form" class="form form_hidden" novalidate>
+    <h3 class="heading heading_form">Вход</h3>
+    <div class="form__grid">
+      <div class="form__fraction form__left-half">
+        <div class="input input_form">
+          <h3 class="input__heading">E-mail:</h3>
+          <input id="login-email" name="login-email" class="input__field" type="email" value=""
+          placeholder="your@dolphine.com" required>
+          <span id="login-email-error" class="input__error"></span>
+        </div>
+          <button id="signin-button" class="hollow-button hollow-button_" type='button'>Регистрация</button>
+      </div>
+      <div class="form__fraction form__right-half">
+        <div class="input input_form">
+          <h3 class="input__heading">Пароль:</h3>
+          <input id="login-password" name="login-password" class="input__field" type="password" value=""
+          placeholder="***********" required>
+          <span id="login-password-error" class="input__error"></span>
+        </div>
+          <button class="black-button submit-button" type="submit">Вход</button>
+          <button id="recovery-button" class="form__recovery-button" type='button'>Забыли пароль?</button>
+      </div>
+    </div>
+  </div>
+{% endform %}
