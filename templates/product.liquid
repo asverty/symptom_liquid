@@ -14,7 +14,7 @@
     </div>
     <div class="item__info-grid">
       <a href="/pages/shipping-and-payment" class="item__shipping">Доставка</a>
-      <span>и</span>
+      <span>И</span>
       <a href="/pages/waranty-and-returns" class="item__shipping">возврат</a>
     </div>
   </div>
@@ -27,11 +27,6 @@
              id="ProductPhoto"
              style="max-width: {% include 'image-width' with image: image, width: 480 %}px;"
              data-image-id="{{ image.id }}">
-          <!-- <a href="{{ image | img_url: '700x700' }}"
-             class="js-modal-open-product-modal product__photo-wrapper product__photo-wrapper-{{ section.id }}"
-             style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
-            {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-          </a> -->
         </div>
         {%- endfor -%}
 
@@ -41,20 +36,50 @@
         </a>
         </noscript>
 
-  {% if product.images.size > 1 %}
-    <div class="photos__item photos__item--thumbs">
-      <div class="product-single__thumbnails product-single__thumbnails-{{ section.id }}{% unless product.images.size > 2 %} product-single__thumbnails--static{% endunless %}">
-        {% for image in product.images limit:4 %}
-          <div class="product-single__thumbnail-item product-single__thumbnail-item-{{ section.id }}{% if image == featured_image %} is-active{% endif %}" data-image-id="{{ image.id }}">
-            <a href="{{ image.src | img_url: product_image_size }}" data-zoom="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail product-single__thumbnail-{{ section.id }}">
-              <img src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
-            </a>
+        {% if product.images.size > 1 %}
+          <div class="photos__item photos__item--thumbs">
+            <div class="product-single__thumbnails product-single__thumbnails-{{ section.id }}{% unless product.images.size > 2 %} product-single__thumbnails--static{% endunless %}">
+              {% for image in product.images %}
+                <div class="product-single__thumbnail-item product-single__thumbnail-item-{{ section.id }}{% if image == featured_image %} is-active{% endif %}" data-image-id="{{ image.id }}">
+                  <a href="{{ image.src | img_url: product_image_size }}" data-zoom="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail product-single__thumbnail-{{ section.id }}">
+                    <img src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
           </div>
-        {% endfor %}
-      </div>
-    </div>
-  {% endif %}
+        {% endif %}
 
+  <!-- {% if product.images.size > 1 %}
+  <ul class="product-single__thumbnails grid grid--uniform" id="ProductThumbs">
+
+    {% case product.images.size %}
+      {% when 2 %}
+        {% assign thumbnail_width = 'small--one-half medium-up--push-one-sixth medium-up--one-third' %}
+      {% when 4 %}
+        {% assign thumbnail_width = 'small--one-half medium-up--one-quarter' %}
+      {% else %}
+        {% assign thumbnail_width = 'small--one-third medium-up--one-third' %}
+    {% endcase %}
+
+    {% for image in product.images %}
+      <li class="grid__item {{ thumbnail_width }}">
+        <a href="{{ image.src | img_url: 'grande' }}" class="product-single__thumbnail" data-image-id="{{ image.id }}">
+          <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+        </a>
+      </li>
+    {% endfor %}
+
+  </ul>
+{% endif %}
+
+{% if section.settings.product_image_zoom_type == 'lightbox' %}
+  <ul class="gallery hidden">
+    {% for image in product.images %}
+      <li data-image-id="{{ image.id }}" class="gallery__item" data-mfp-src="{{ image | img_url: '2048x2048' }}"></li>
+    {% endfor %}
+  </ul>
+{% endif %} -->
   {% unless product == empty %}
     <script type="application/json" id="ProductJson-{{ section.id }}">
       {{ product | json }}
@@ -63,6 +88,56 @@
 
 </div>
 
+  {% comment %}
+  {%- unless product.has_only_default_variant -%}
+  {%- for option in product.options_with_values -%}
+
+    {%- if section.settings.product_selector == 'radio' -%}
+      <fieldset id="ProductSelect-option-{{ forloop.index0 }}" name="{{ option.name | handleize }}">
+        <legend>
+          {{ option.name | escape }}
+        </legend>
+        {%- for value in option.values -%}
+          <!-- Check to see if there's a product size option. If there is a size, check to see if there's any availble for purchase. If not, set the variat control in a "disabled" state. -->
+          {%- assign variant_label_state = true -%}
+
+          {%- if product.options.size == 1 -%}
+            {%- unless product.variants[forloop.index0].available -%}
+              {%- assign variant_label_state = false -%}
+            {%- endunless -%}
+          {%- endif -%}
+
+          <input type="radio"
+            {% if option.selected_value == value %} checked="checked"{% endif %}
+            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+            value="{{ value | escape }}"
+            data-index="option{{ forloop.index }}"
+            name="{{ option.name | handleize }}"
+            id="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+          <label for="ProductSelect-option-{{ option.name | handleize }}-{{ value | escape }}">
+            {{ value | escape }}
+          </label>
+        {%- endfor -%}
+      </fieldset>
+    {%- else -%}
+      <label for="ProductSelect-option-{{ forloop.index0 }}">
+        {{ option.name | escape }}
+      </label>
+      <select id="ProductSelect-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+        {%- for value in option.values -%}
+          <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>
+            {{ value | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+    {%- endif -%}
+
+  {%- endfor -%}
+{%- endunless -%}
+  {% endcomment %}
+
+
+</div>
   <div class="item__order">
 
     {% if product.title != 'Подарочный сертификат' %}
@@ -139,6 +214,7 @@
     <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button> Свяжитесь с нами, чтобы обсудить<br>все важные детали.<br>
     </p>
     <!-- <button class="circle-like-button"></button> -->
+    </div>
   </div>
 </div>
 

@@ -91,12 +91,10 @@
     <div class="black-button_cart-btn-grid">
 
       <div class="chekout-button">
-        <a href="/pages/chekout" class="black-button black-button_order">Оплата</a>
+        <button class="black-button black-button_order" type="submit" name="checkout">Оформить</button>
           {% if additional_checkout_buttons %}
-            <div class="additional-checkout-buttons">
-              {{ content_for_additional_checkout_buttons }}
-            </div>
-          {% endif %}
+\            {{ content_for_additional_checkout_buttons }}
+\          {% endif %}
         <input type="submit" name="checkout" class="cart__submit btn btn--small-wide" value="">
       </div>
 
