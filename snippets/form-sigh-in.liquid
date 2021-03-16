@@ -1,0 +1,44 @@
+{% form 'create_customer' %}
+	<div id="signin-form" class="form form_hidden" novalidate>
+		<h3 class="heading heading_form">Регистрация</h3>
+		<div class="form__grid">
+			<div class="form__left-half">
+			<div class="input input_form">
+				<h3 class="input__heading">E-mail:</h3>
+				<input id="signin-email" name="signin-email" class="input__field" type="email" value=""
+				placeholder="your@dolphine.com" required>
+				<span id="signin-email-error" class="input__error"></span>
+			</div>
+			<label class="checkbox checkbox_form">
+				<div>
+				<input id="signin-mailing" name="signin-mailing" class="checkbox__true-checkbox" type="checkbox"
+						value="subscribed" checked>
+				<div class="checkbox__fake-checkbox"></div>
+				</div>
+				<p class="checkbox__description">Я хочу получать информацию о новых коллекциях и специальных предложениях на
+				указанный адрес электронной почты</p>
+			</label>
+			</div>
+			<div class="form__right-half">
+			<div class="input input_form">
+				<h3 class="input__heading">Пароль:</h3>
+				<input id="signin-password" name="signin-password" class="input__field" type="password" minlength="6"
+				maxlength="24" value="" placeholder="***********" required>
+				<span id="signin-password-error" class="input__error"></span>
+			</div>
+			<label class="checkbox checkbox_form">
+				<div>
+				<input id="signin-rules-agreement" name="signin-rules-agreement"
+					class="checkbox__true-checkbox checkbox__true-checkbox_required" type="checkbox" value="agreed" checked
+					required>
+				<div class="checkbox__fake-checkbox"></div>
+				</div>
+				<p class="checkbox__description">Нажимая кнопку «Регистрация», вы даете согласие на обработку ваших
+				персональных данных согласно положениям <a class="paragraph__link" href="/pages/confidential"> по
+					ссылке.</a></p>
+			</label>
+			<button class="black-button submit-button" type="submit">Регистрация</button>
+			</div>
+		</div>
+	</div>
+{% endform %}

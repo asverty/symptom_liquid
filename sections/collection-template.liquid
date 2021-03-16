@@ -26,37 +26,14 @@
 
 <!-- ITEMS CONTAINER -->
 <div class="grid-container">
-  <!-- {% assign grid_item_width = 'wide--one-fifth large--one-quarter medium-down--one-half' %} -->
-  <!-- {%- assign product_width = 319 -%} -->
-  {% for product in collection.products %}
-  {% assign featured = product %}
-  <div class="grid__item {{grid_item_width}}">
-    {% include 'product-grid-item' %}
-  </div>
-  {% else %}
+  {% paginate collection.products by 200 %}
+    {% for product in collection.products %}
+      {% assign featured = product %}
+        <div class="grid__item {{grid_item_width}}">
+          {% include 'product-grid-item' %}
+        </div>
+      {% else %}
 </div>
 
-{% if shop.products_count == 0 %}
-<div class="grid__item card card_square">
-  <div class="helper-section">
-    <div class="grid-uniform helper-content{% if section.settings.center_grid_link %} text-center{% endif %}">
-      {% for i in (1..8) %}
-      <div class="grid__item one-half post-large--one-quarter">
-        <a href="/admin/products" class="grid-link">
-          <span class="grid-link__image grid-link__image--product">
-            <span class="grid-link__image-centered">
-            </span>
-          </span>
-          <p class="card__name">{{ 'product_title' | t }}</p>
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-{% else %}
-<div class="grid__item">
-  <p><em>{{ 'collections.general.no_matches' | t }}</em></p>
-</div>
-{% endif %}
 {% endfor %}
+{% endpaginate %}
