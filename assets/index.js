@@ -110,6 +110,12 @@ function hideFooter() {
 	}, 300);
 };
 
+lastSection.addEventListener('swiped-up', showFooter);
+lastSection.addEventListener('swiped-down', hideFooter);
+lastSection.addEventListener('click', hideFooter);
+footer.addEventListener('swiped-down', hideFooter);
+header.addEventListener('click', hideFooter);
+
 // открываем футер клавишей "вниз"
 document.addEventListener('keydown', event => {
 	let activeSection = myFullpage.getActiveSection();
@@ -232,3 +238,12 @@ cookiesCloseButton.addEventListener('click', () => {
 });
 
 areCookiesAccepted();
+
+// MOB JS
+
+const menu = document.querySelector('.menu-popup');
+const menuButton = document.querySelector('.menu-button');
+const closeButton = document.querySelector('.menu-close-button');
+
+menuButton.addEventListener('click', () => menu.classList.toggle('menu-popup_hidden'));
+closeButton.addEventListener('click', () => menu.classList.toggle('menu-popup_hidden'));

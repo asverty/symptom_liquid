@@ -855,7 +855,7 @@ button:hover, a:hover {
 
 /* MENUS: BRANDS, CATEGORIES MOB VERSION */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 375px) {
   .mobileHide {
     display: none;
   }
@@ -1314,6 +1314,17 @@ button:hover, a:hover {
   }
 }
 
+@media screen and (max-width: 450px) {
+  .section__heading {
+    margin-bottom: 10px;
+    margin-top: 300px;
+    font-size: 6rem;
+    line-height: 0.85;
+    color:  #FAFAFA;
+    text-transform: uppercase;
+  }
+}
+
 .section__heading-span {
   margin-left: 26px;
   font-size: 64px;
@@ -1364,18 +1375,6 @@ button:hover, a:hover {
   .section {
     background-position: top;
     background-size: cover;
-  }
-
-  .section_1 {
-    background-image: url({{ 'fullpage-section-1.jpg' | asset_img_url: 'master' }});
-  }
-
-  .section_2 {
-  background-image: url({{ 'fullpage-section-2.jpg' | asset_img_url: 'master' }});
-  }
-
-  .section_3 {
-  background-image: url({{ 'fullpage-section-4.jpg' | asset_img_url: 'master' }});
   }
 
   .section-info {
@@ -2714,7 +2713,7 @@ button:hover, a:hover {
   min-height: 44px;
   font-size: 18px;
   border: none;
-  border: 1px solid #0F0F0F;
+  border: 1px #0F0F0F;
 }
 
 .search-bar__submit {
