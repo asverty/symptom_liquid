@@ -67,17 +67,17 @@
 
     {% if product.title != 'Подарочный сертификат' %}
       <h4 class="item__radio-heading">Выберите размер:</h4>
-      <p class="item__preorder-info-variants">(OS = one size)</p>
+      <!-- <p class="item__preorder-info-variants">(OS = one size)</p> -->
     {% else %}
       <h4 class="item__radio-heading-variants">Выберите сумму сертификата:</h4>
       <p class="item__preorder-info-variants">(k = 1000 руб)</p>
     {% endif %}
 
-    {% if product.variant == 'Левая' %}
+    <!-- {% if product.variant == 'Левая' %}
       {{ 'side-left.png' | asset_img_url: 'master' }}
       {% elsif product.variant == 'Правая' %}
       {{ 'side-right.png' | asset_img_url: 'master' }}
-    {% endif %}
+    {% endif %} -->
 
     {% form "product", product %}
     <div class="round-sizes">
@@ -111,9 +111,9 @@
                 </option>
               </span>
           </label>
-        {% if variant.title in collection == 'Default title' %}
+        <!-- {% if variant.title in collection == 'Default title' %}
           {{ variant.title | 'OS' }}
-        {% endif %}
+        {% endif %} -->
         {% endif %}
       {% endfor %}
     </div>
