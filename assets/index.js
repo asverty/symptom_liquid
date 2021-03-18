@@ -96,6 +96,12 @@ if(counter){
 const footer = document.querySelector('.footer');
 const lastSection = Array.from(document.querySelectorAll('.section')).pop();
 
+lastSection.addEventListener('swiped-up', showFooter);
+lastSection.addEventListener('swiped-down', hideFooter);
+lastSection.addEventListener('click', hideFooter);
+footer.addEventListener('swiped-down', hideFooter);
+header.addEventListener('click', hideFooter);
+
 function showFooter() {
 	footer.classList.remove('footer_hidden');
 	myFullpage.setAllowScrolling(false, 'up');
@@ -110,11 +116,6 @@ function hideFooter() {
 	}, 300);
 };
 
-lastSection.addEventListener('swiped-up', showFooter);
-lastSection.addEventListener('swiped-down', hideFooter);
-lastSection.addEventListener('click', hideFooter);
-footer.addEventListener('swiped-down', hideFooter);
-header.addEventListener('click', hideFooter);
 
 // открываем футер клавишей "вниз"
 document.addEventListener('keydown', event => {

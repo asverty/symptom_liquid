@@ -33,13 +33,17 @@
   <!-- FOOTER -->
   {% section 'footer' %}
 
+  <!-- {% section 'footer' %}
+
+  {% if template == 'page.menu-brands-mob' %} -->
+
   <!-- COMMON SCRIPTS -->
   {{ 'header.js' | asset_url | script_tag }}
   {{ 'brands-menu.js' | asset_url | script_tag }}
   {{ 'categories-menu.js' | asset_url | script_tag }}
-  {{ 'lazysizes.min.js' | asset_url | script_tag }}
   {{ 'validation.js' | asset_url | script_tag }}
   {{ 'chatra.js' | asset_url | script_tag }}
+  {{ 'lazysizes.min.js' | asset_url | script_tag }}
   {{ 'swiped-events.min.js' | asset_url | script_tag }}
 
   <!-- SCRIPTS FOR INDEX -->

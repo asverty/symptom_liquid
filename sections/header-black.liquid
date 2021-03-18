@@ -1,38 +1,72 @@
-<header class="header">
-	<div class="header__fraction">
-		<a id="header-logo" class="header__logo" href="/index"></a>
-	</div>
-	<div class="header__fraction">
-		<button id="header-brands-button" class="header__button" type='button'>
-			<span id="brands-outline" class="header__button-outline header__button-outline_hidden"></span>
-			БРЕНДЫ
-		</button>
-		<button id="header-categories-button" class="header__button" type='button'>
-			<span id="categories-outline" class="header__button-outline header__button-outline_hidden"></span>
-			КАТЕГОРИИ
-		</button>
-	</div>
-	<div class="header__fraction">
-		<button id="header-subscribe-button" class="header__button" type='button'>
-			<span id="subscribe-outline" class="header__button-outline header__button-outline_hidden"></span>
-			ПОДПИСАТЬСЯ
-		</button>
-	</div>
-	<div class="header__fraction">
-		<button id="header-login-button" class="header__button header__button_login" type='button'>
-			<span id="login-outline" class="header__button-outline header__button-outline_hidden"></span>
-			ВОЙТИ
-		</button>
-    <button id="header-finder-button" class="header__button " type='button'>
-      <span id="finder-outline" class="header__button-outline header__button-outline_hidden"></span>
-      ПОИСК
-    </button>
-		<a id="header-cart-button" class="header__button header__button_cart" href="/cart">
-			<span id="cart-outline" class="header__button-outline header__button-outline_hidden"></span>
-      КОРЗИНА({{ cart.item_count | prepend: '0' }})
-		</a>
-	</div>
-</header>
+<div class="mobileHide">
+  <header class="header">
+    <div class="header__fraction">
+      <a id="header-logo" class="header__logo" href="/index"></a>
+    </div>
+    <div class="header__fraction">
+      <button id="header-brands-button" class="header__button" type='button'>
+        <span id="brands-outline" class="header__button-outline header__button-outline_hidden"></span>
+        БРЕНДЫ
+      </button>
+      <button id="header-categories-button" class="header__button" type='button'>
+        <span id="categories-outline" class="header__button-outline header__button-outline_hidden"></span>
+        КАТЕГОРИИ
+      </button>
+    </div>
+    <div class="header__fraction">
+      <button id="header-subscribe-button" class="header__button" type='button'>
+        <span id="subscribe-outline" class="header__button-outline header__button-outline_hidden"></span>
+        ПОДПИСАТЬСЯ
+      </button>
+    </div>
+    <div class="header__fraction">
+      <button id="header-login-button" class="header__button header__button_login" type='button'>
+        <span id="login-outline" class="header__button-outline header__button-outline_hidden"></span>
+        ВОЙТИ
+      </button>
+      <button id="header-finder-button" class="header__button " type='button'>
+        <span id="finder-outline" class="header__button-outline header__button-outline_hidden"></span>
+        ПОИСК
+      </button>
+      <a id="header-cart-button" class="header__button header__button_cart" href="/cart">
+        <span id="cart-outline" class="header__button-outline header__button-outline_hidden"></span>
+        КОРЗИНА({{ cart.item_count | prepend: '0' }})
+      </a>
+    </div>
+  </header>
+</div>
+
+<div class="mobileShow">
+  <header class="header">
+    <a href="/index">
+      <div class="logo"></div>
+    </a>
+    <button class="menu-button">Меню</button>
+  </header>
+  <div class="menu-popup menu-popup_hidden">
+    <div class="fake-header">
+      <a href="/index">
+        <div class="fake-logo"></div>
+      </a>
+      <button class="menu-close-button">Закрыть</button>
+    </div>
+    <nav class="menu-mob">
+      <ul class="menu-list">
+        <li class="menu-list-element"><a class="menu-link" href="/pages/menu-brands-mob">Бренды</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/pages/menu-categories-mob">Категории</a></li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-list-element"><a class="menu-link" href="./pages/log_in/log_in.html">Войти</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="./pages/wishes/wishes.html">Поиск</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="./pages/cart/cart.html">Корзина(00)</a></li>
+      </ul>
+      <ul class="menu-list">
+        <li class="menu-list-element"><a class="menu-link" href="#">Подписаться</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/pages/about-us">О нас</a></li>
+      </ul>
+    </nav>
+  </div>
+</div>
 
 <!-- MENU: BRANDS -->
 {% render 'header-menu-brands' %}
