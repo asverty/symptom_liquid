@@ -2,7 +2,7 @@
 const menu = document.querySelector('.menu-popup');
 const header = document.querySelector('.header');
 const main = document.querySelector('.main');
-const menuButton = document.querySelector('.menu-button');
+const menuButton = document.querySelector('.sub-menu-button');
 const closeButton = document.querySelector('.menu-close-button');
 
 const toggleMenu = () => {

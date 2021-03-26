@@ -1,22 +1,31 @@
-<main class="main">
-    <h2 class="page-heading">Категории:</h2>
-    <ul class="categorys-list">
-      <li class="categorys-list-element"><a href="/collections/подвески" class="categorys-link">Подвески</a></li>
-      <li class="categorys-list-element"><a href="/collections/серьги" class="categorys-link">Серьги</a></li>
-      <li class="categorys-list-element"><a href="/collections/кольца" class="categorys-link">Кольца</a></li>
-      <li class="categorys-list-element"><a href="/collections/каффы" class="categorys-link">Каффы</a></li>
-      <li class="categorys-list-element"><a href="/collections/браслеты" class="categorys-link">Браслеты</a></li>
-      <li class="categorys-list-element"><a href="/collections/заколки" class="categorys-link">Заколки</a></li>
-      <li class="categorys-list-element"><a href="/collections/фероньерки" class="categorys-link">Фероньерки</a></li>
+{% layout 'alt-theme' %}
 
-    </ul>
-    <ul class="categorys-list">
-      <li class="categorys-list-element"><a href="/collections/парфюмерия" class="categorys-link">Духи</a></li>
-      <li class="categorys-list-element"><a href="/collections/парфюм" class="categorys-link">Твёрдые духи</a></li>
-      <li class="categorys-list-element"><a href="/collections/одежда" class="categorys-link">Одежда</a></li>
-      <li class="categorys-list-element"><a href="/collections/головные-уборы" class="categorys-link">Головные уборы</a></li>
-      <li class="categorys-list-element"><a href="/collections/керамика" class="categorys-link">Керамика</a></li>
-    </ul>
-  </main>
+<div class="fake-header">
+  <a href="/index">
+    <div class="fake-logo"></div>
+  </a>
+  <button class="sub-menu-button">Меню</button>
+</div>
 
-  {{ 'categories-menu-mob.js' | asset_url | script_tag }}
+
+<div class="main">
+  <h2 class="page-heading">Категории:</h2>
+  <ul class="categorys-list">
+    <li class="categorys-list-element"><a href="/collections/подвески" class="categorys-link">Подвески</a></li>
+    <li class="categorys-list-element"><a href="/collections/серьги" class="categorys-link">Серьги</a></li>
+    <li class="categorys-list-element"><a href="/collections/кольца" class="categorys-link">Кольца</a></li>
+    <li class="categorys-list-element"><a href="/collections/каффы" class="categorys-link">Каффы</a></li>
+    <li class="categorys-list-element"><a href="/collections/браслеты" class="categorys-link">Браслеты</a></li>
+    <li class="categorys-list-element"><a href="/collections/заколки" class="categorys-link">Заколки</a></li>
+    <li class="categorys-list-element"><a href="/collections/фероньерки" class="categorys-link">Фероньерки</a></li>
+  </ul>
+  <ul class="categorys-list">
+    <li class="categorys-list-element"><a href="/collections/парфюмерия" class="categorys-link">Духи</a></li>
+    <li class="categorys-list-element"><a href="/collections/парфюм" class="categorys-link">Твёрдые духи</a></li>
+    <li class="categorys-list-element"><a href="/collections/одежда" class="categorys-link">Одежда</a></li>
+    <li class="categorys-list-element"><a href="/collections/головные-уборы" class="categorys-link">Головные уборы</a></li>
+    <li class="categorys-list-element"><a href="/collections/керамика" class="categorys-link">Керамика</a></li>
+  </ul>
+</div>
+
+{{ 'categories-menu-mob.js' | asset_url | script_tag }}

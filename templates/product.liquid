@@ -35,11 +35,11 @@
         </div>
         {%- endfor -%}
 
-        <noscript>
+        <!-- <noscript>
         <a href="{{ featured_image | img_url: '700x700' }}">
           <img src="{{ featured_image | img_url: product_image_size }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg-{{ section.id }}">
         </a>
-        </noscript>
+        </noscript> -->
 
   {% if product.images.size > 1 %}
     <div class="photos__item photos__item--thumbs">
@@ -87,9 +87,7 @@
             <input class="round-sizes__true-radio" type="radio" name="size">
               <span class="round-sizes__fake-radio">
                 <option
-                  {% if variant == product.selected_or_first_available_variant %}
                   class="item__variants-padding"
-                  {% endif %}
                   value="{{ variant.id }}">
                     {{ variant.title }}
                 </option>
