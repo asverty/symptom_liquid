@@ -54,22 +54,24 @@
     <div class="cart-item">
       {% for item in cart.items %}
         <div class="cart-item__info">
-          <span class="cart-item__spec">{{ product.title }}</span>
-          <span class="cart-item__spec">{{ product.variant }}</span>
-          <span class="cart-item__price">{{ product.price | money }}</span>
+          <div class="cart-item-grid">
+            <span class="cart-item__title">{{ item.product.title }}</span>
+            <span class="cart-item__spec">{{ item.product.variant }}</span>
+            <span class="cart-item__price">{{ item.product.price | money }}</span>
+            <span>
+              <input class="cart-item__spec" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+            </span>
+          </div>
+          <a href="{{ item.url }}">
+            <img class="cart-item__image" src="{{ item | img_url: '200x200' }}" alt="{{ item.title | escape }}">
+          </a>
+          <div class="cart-item__buttons">
+            <button class="cart-item__edit-button"></button>
+            <button class="cart-item__remove-button" data-cart-remove data-role="product-remove"></button>
+          </div>
         </div>
-        <!-- <a href="{{ item.url }}">
-          <img class="cart-item__image" src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-        </a> -->
       {% endfor %}
-        <div class="cart-item__buttons">
-          <button class="cart-item__edit-button"></button>
-          <button class="cart-item__remove-button"></button>
-        </div>
     </div>
-    <span cart-item__spec>
-      <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
-    </span>
   </div>
 
   <!-- <label for="CartNote">Special instructions</label>

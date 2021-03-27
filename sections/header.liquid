@@ -58,7 +58,7 @@
       <ul class="menu-list">
         <li class="menu-list-element"><a class="menu-link" href="./pages/log_in/log_in.html">Войти</a></li>
         <li class="menu-list-element"><a class="menu-link" href="./pages/wishes/wishes.html">Поиск</a></li>
-        <li class="menu-list-element"><a class="menu-link" href="./pages/cart/cart.html">Корзина(00)</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/cart">Корзина({{ cart.item_count | prepend: '0' }})</a></li>
       </ul>
       <ul class="menu-list">
         <li class="menu-list-element"><a class="menu-link" href="#">Подписаться</a></li>
@@ -99,7 +99,7 @@
           aria-autocomplete="list"
           aria-owns="predictive-search-results"
           aria-expanded="false"
-          aria-label="{{ 'оиск' }}"
+          aria-label="{{ ' Поиск' }}"
           aria-haspopup="listbox"
           class="search-bar__input"
           data-predictive-search-drawer-input

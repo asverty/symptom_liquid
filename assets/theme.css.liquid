@@ -74,14 +74,18 @@ button:hover, a:hover {
 
   html {
     font-size: 10px;
+    max-width: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: auto;
   }
 
   body {
-    position: relative;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #FAFAFA;
+    max-width: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: auto;
   }
 }
 
@@ -577,9 +581,9 @@ button:hover, a:hover {
 
 .filters__filter-outline {
   position: absolute;
-  top: -12px;
-  left: -28px;
-  width: calc(100% + 56px);
+  top: -15px;
+  left: -8px;
+  width: calc(100% + 17px);
   height: 38px;
   border: 1px solid #0F0F0F;
   border-radius: 50%;
@@ -2175,14 +2179,21 @@ button:hover, a:hover {
   position: relative;
   width: 90%;
   height: 218px;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto;
   justify-content: space-between;
 }
 
 .cart-item__info {
   z-index: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+}
+
+.cart-item-grid {
+  display: grid;
+  grid-template-rows: auto;
+  grid-auto-flow: row;
 }
 
 .cart-item__spec {
@@ -2190,6 +2201,11 @@ button:hover, a:hover {
   line-height: 1.2;
   color: #0F0F0F;
   text-transform: uppercase;
+  justify-content: ;
+}
+
+.cart-item__title {
+  width: 500px;
 }
 
 .cart-item__spec:first-child {
@@ -2249,15 +2265,11 @@ button:hover, a:hover {
   z-index: 0;
   max-width: 100%;
   height: 100%;
-  background-image: url(./images/content/ring-prayer.jpg);
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
 }
 
 .cart-item__buttons {
   z-index: 1;
-  padding-top: 24px;
+  padding-left: 1%;
   display: flex;
   flex-direction: row;
 }

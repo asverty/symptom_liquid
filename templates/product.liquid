@@ -12,11 +12,6 @@
     <div class="item__info-grid">
       <div class="item__description">{{ product.description }}</div>
     </div>
-    <div class="item__info-grid">
-      <a href="/pages/shipping-and-payment" class="item__shipping">Доставка</a>
-      <span>и</span>
-      <a href="/pages/waranty-and-returns" class="item__shipping">возврат</a>
-    </div>
   </div>
 
   <div class="item__product-wrapper">
@@ -133,10 +128,16 @@
     {% endform %}
 
     <p class="item__preorder-info">
-    Если размер нельзя выбрать - он отсутсвует в наличии. Но вы можете оформить предзаказ в нашем
-    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button> Свяжитесь с нами, чтобы обсудить<br>все важные детали.<br>
+    Если размер нельзя выбрать - он отсутсвует. Но вы можете оформить предзаказ в нашем
+    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button>
+    Свяжитесь с нами, чтобы обсудить<br>все важные детали.<br>
     </p>
     <!-- <button class="circle-like-button"></button> -->
+    <div class="item__preorder-info">
+      <a href="/pages/shipping-and-payment" class="item__shipping">Доставка</a>
+      <span>и</span>
+      <a href="/pages/waranty-and-returns" class="item__shipping">возврат</a>
+    </div>
   </div>
 </div>
 
