@@ -1,3 +1,5 @@
 Liquid template for symptom.jewelry
 
-** updated
+Result:
+
+https://www.symptom.jewelry/
