@@ -20,29 +20,29 @@
       </button>
     </div>
     <div class="header__fraction">
-      <button id="header-login-button" class="header__button header__button_login" type='button'>
+      <a id="header-login-button" class="header__button header__button_login" href="/account/login">
         <span id="login-outline" class="header__button-outline header__button-outline_hidden"></span>
-        ВОЙТИ
-      </button>
+        ПРОФИЛЬ
+      </a>
       <button id="header-finder-button" class="header__button " type='button'>
         <span id="finder-outline" class="header__button-outline header__button-outline_hidden"></span>
         ПОИСК
       </button>
       <a id="header-cart-button" class="header__button header__button_cart" href="/cart">
         <span id="cart-outline" class="header__button-outline header__button-outline_hidden"></span>
-        КОРЗИНА({{ cart.item_count | prepend: '0' }})
+        КОРЗИНА (<span class='cart-count'>{{ cart.item_count }}</span>)
       </a>
     </div>
   </header>
 </div>
 
 <div class="mobileShow">
-  <header class="header">
+  <div class="header">
     <a href="/index">
       <div class="logo"></div>
     </a>
     <button class="menu-button">Меню</button>
-  </header>
+  </div>
   <div class="menu-popup menu-popup_hidden">
     <div class="fake-header">
       <a href="/index">
@@ -56,9 +56,10 @@
         <li class="menu-list-element"><a class="menu-link" href="/pages/menu-categories-mob">Категории</a></li>
       </ul>
       <ul class="menu-list">
-        <li class="menu-list-element"><a class="menu-link" href="./pages/log_in/log_in.html">Войти</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/account/register">Регистрация</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/account/login">Войти</a></li>
         <li class="menu-list-element"><a class="menu-link" href="./pages/wishes/wishes.html">Поиск</a></li>
-        <li class="menu-list-element"><a class="menu-link" href="/cart">Корзина({{ cart.item_count | prepend: '0' }})</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/cart">Корзина (<span class='cart-count'>{{ cart.item_count }}</span>)</a></li>
       </ul>
       <ul class="menu-list">
         <li class="menu-list-element"><a class="menu-link" href="#">Подписаться</a></li>
@@ -76,9 +77,6 @@
 
 <!-- FORM: SUBSCRIBE -->
 {% render 'form-subscribe' %}
-
-<!-- FORM: LOG IN -->
-{% render 'form-log-in' %}
 
 <!-- FORM: SIGN IN -->
 {% render 'form-sigh-in' %}
@@ -117,7 +115,3 @@
     </form>
   </div>
 </div>
-
-<!-- {{ 'common.js' | asset_url | script_tag }}
-{{ 'index.js' | asset_url | script_tag }} -->
-<!-- {{ 'cart.js' | asset_url | script_tag }} -->

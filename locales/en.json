@@ -1,8 +1,1 @@
-{
-  "general": {
-    "404": {
-      "title": "404",
-      "subtext_html": "Everything always goes wrong"
-    }
-  }
-}
+{"general":{"404":{"title":"404","subtext_html":"Everything always goes wrong"}}}

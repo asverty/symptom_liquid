@@ -1,112 +1,168 @@
-<!-- {% if cart.item_count > 0 %}
-  <h1>cart</h1>
-  <form action="/cart" method="post" novalidate>
-    <table>
-      <thead>
-        <th colspan="2">Prod</th>
-        <th>Цена</th>
-        <th>Кол-во</th>
-        <th>Всего</th>
-      </thead>
-      <tbody>
-        {% for item in cart.items %}
-          <tr>
-            <td>
-              <a href="{{ item.url | within: collections.all }}">
-                <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-              </a>
-            </td>
-            <td>
-              <a href="{{ item.url }}">{{ item.product.title }}</a>
-              {{ item.variant.title }}
-              <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0">remove</a>
-            </td>
-            <td>{{ item.price | money }}</td>
-            <td>
-              <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
-            </td>
-            <td>
-              {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
-              {{ item.line_price | money }}
-              {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
-            </td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    <div>
-      <p>sub total : {{ cart.total_price | money }}</p>
-      <button type="submit" name="update">Обновить</button>
-      <button type="submit" name="checkout">Оплатить</button>
-    </div>
-  </form>
-{% else %}
-  <h2>КОРЗИНА</h2>
-  Cart is empty
-{% endif %} -->
+{% for attr in cart.attributes %} 
+  <script> 
+    // сброс кэша атрибутов, Шопифай хранит его 14 дней, как итог пустые товары в корзине
+    try{
+      $.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: 'attributes[{{attr | first}}=]',
+        dataType: 'json'
+      });
+    }catch(e){};
+  </script>
+{% endfor %}
 
 {% if cart.item_count > 0 %}
-<div class="cart">
-  <div class="cart-items">
-    <h1 class="heading">{{ cart.item_count }} {{ cart.item_count | pluralize: 'шт.', 'шт.' }}</h1>
-    <h1 class="heading">{{ cart.total_price | money }}</h1>
-    <form action="/cart" method="post" novalidate></form>
-    <div class="cart-item">
-      {% for item in cart.items %}
-        <div class="cart-item__info">
+
+<form action="/cart" method="post" data-cart-view="data-cart-view"> 
+
+  <div class="cart">
+
+    <div class="cart-items">
+
+      <h1 class="heading" rv-text="cart.item_count | append ' шт.'"></h1>
+      <h1 class="heading" rv-text="cart.total_price | money"></h1> 
+
+      {% comment %} Rivets.js + cartjs - Reference https://cartjs-dev.myshopify.com/pages/reference#dom-binding-money_with_currency {% endcomment %}
+      {% comment %} http://rivetsjs.com/docs/reference/#text {% endcomment %}
+
+      <div class="cart-item" rv-each-item="cart.items"> 
+
+        <div class="cart-item__info" rv-if="item.handle">
+
           <div class="cart-item-grid">
-            <span class="cart-item__title">{{ item.product.title }}</span>
-            <span class="cart-item__spec">{{ item.product.variant }}</span>
-            <span class="cart-item__price">{{ item.product.price | money }}</span>
-            <span>
-              <input class="cart-item__spec" type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
-            </span>
+
+            <a rv-href="item.url" class="cart-item__title" rv-text="item.product_title"></a>
+
+            <span class="cart-item__spec" rv-if="item.variant_title">Размер: <span rv-html="item.variant_title"></span></span>
+
+            <p class="cart-item__spec">Количество:</p>
+
+            <div class="quantity">
+              <i class="quantity__handler quantity__minus fas fa-minus" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | minus 1"></i>
+              <div class="quantity__text" rv-text="item.quantity"></div>
+              <i class="quantity__handler quantity__plus fas fa-plus" rv-data-cart-update="index | plus 1" rv-data-cart-quantity="item.quantity | plus 1"></i>
+            </div> 
+
+            <span class="cart-item__price">Цена: <span rv-html="item.line_price | money"></span></span>
+
           </div>
-          <a href="{{ item.url }}">
-            <img class="cart-item__image" src="{{ item | img_url: '200x200' }}" alt="{{ item.title | escape }}">
+
+          <a data-fancybox="" rv-href="item.image | product_image_size '1000x1000'">
+            <img rv-src="item.image | product_image_size '200x200'" class="cart-item__image" alt="{{ item.title | escape }}">
           </a>
+
           <div class="cart-item__buttons">
-            <button class="cart-item__edit-button"></button>
-            <button class="cart-item__remove-button" data-cart-remove data-role="product-remove"></button>
+            <span class="cart-item__remove-button" rv-data-cart-remove="index | plus 1"></span> 
           </div>
+
         </div>
-      {% endfor %}
+
+      </div>
+
+    </div>
+
+    <div class="order">
+
+      <p class="paragraph paragraph_order">
+        Оплата заказа при получении доступна только для доставки по Москве и при самовывозе.
+      </p>
+
+      <p class="paragraph paragraph_order">
+        Ваши личные данные будут использоваться для обработки ваших заказов,
+        для упрощения использования нашего веб-сайта и для других целей,
+        описанных в нашей <a class="paragraph__link" href="/pages/confidential"> политике конфиденциальности</a>.
+      </p>
+
+      <label class="checkbox checkbox_order">
+        <div>
+          <input class="checkbox__true-checkbox" type="checkbox" checked required>
+          <div class="checkbox__fake-checkbox"></div>
+        </div> 
+        <p class="checkbox__description">Я прочитал и согласен с правилами сайта согласно тексту
+        <a class="paragraph__link" href="/pages/offer"> оферты</a>.</p>
+      </label>
+
+      <div class="black-button_cart-btn-grid">
+
+        <div class="chekout-button">
+          <!-- <a href="/pages/chekout" >Оплата</a> -->
+          <input type="submit" name="checkout" value="Оплата" class="black-button black-button_order"/>
+            <!-- {% if additional_checkout_buttons %}
+              <div class="additional-checkout-buttons">
+                {{ content_for_additional_checkout_buttons }}
+              </div>
+            {% endif %}
+          <input type="submit" name="checkout" class="cart__submit btn btn--small-wide" value=""> -->
+        </div>
+
+          <!-- <button type="submit" name="update" class="black-button black-button_back-to-all">Обновить</a> -->
+
+        <a href="/collections/other-objects" class="black-button black-button_back-to-all">В каталог</a>
+      </div>
+
+      <!-- <label for="CartNote">Вы можете указать особые пожелания ниже:</label>
+      <textarea name="note" id="CartNote" class="paragraph">{{ cart.note }}</textarea> -->
+
     </div>
   </div>
-
-  <!-- <label for="CartNote">Special instructions</label>
-  <textarea name="note" id="CartNote">{{ cart.note }}</textarea> -->
-
-  <form class="order">
-    <p class="paragraph paragraph_order">Ваши личные данные будут использоваться для обработки ваших заказов,
-      для упрощения использования нашего веб-сайта и для других целей,
-      описанных в нашей <a class="paragraph__link" href="/pages/confidential"> политике конфиденциальности</a>.</p>
-    <label class="checkbox checkbox_order">
-      <div>
-        <input class="checkbox__true-checkbox" type="checkbox" checked>
-        <div class="checkbox__fake-checkbox"></div>
-      </div>
-      <p class="checkbox__description">Я прочитал и согласен с правилами сайта согласно тексту <a
-          class="paragraph__link" href="/pages/offer"> оферты</a>.</p>
-    </label>
-
-    <div class="black-button_cart-btn-grid">
-
-      <div class="chekout-button">
-        <a href="/pages/chekout" class="black-button black-button_order">Оплата</a>
-          {% if additional_checkout_buttons %}
-            <div class="additional-checkout-buttons">
-              {{ content_for_additional_checkout_buttons }}
-            </div>
-          {% endif %}
-        <input type="submit" name="checkout" class="cart__submit btn btn--small-wide" value="">
-      </div>
-
-      <!-- <button type="submit" name="update" class="black-button black-button_back-to-all">Обновить</a> -->
-
-      <a href="/collections/other-objects" class="black-button black-button_back-to-all">В каталог</a>
-    </div>
-
-  </form>
+</form>
+{% else %}
+<div class="cart__text">
+  <h1 class="cart-empty__text">Корзина пуста</h1>
+  <h2 style="text-align: center; text-transform: uppercase;"><a href="/collections/other-objects" style="text-decoration: underline;">Начните покупки</a></h2>
 </div>
 {% endif %}
+
+{%- comment -%}
+
+{%- if cart.item_count > 0 -%}
+
+<form action="/cart" method="post">
+
+  {%- for item in cart.items -%}
+    <a href="{{ item.url | within: collections.all }}">
+      <img src="{{ item | img_url: '200x200' }}" alt="{{ item.image.alt | escape }}">
+      {{ item.product.title }}
+    </a>
+
+    {%- unless item.variant.title contains 'Default' -%}
+      <p>{{ item.variant.title }}</p>
+    {%- endunless -%}
+
+    {%- assign property_size = item.properties | size -%}
+    {%- if property_size > 0 -%}
+      <ul>
+
+        {%- for p in item.properties -%}
+          {%- assign first_character_in_key = p.first | truncate: 1, '' -%}
+          {%- unless p.last == blank or first_character_in_key == '_' -%}
+            <li>
+              {{ p.first }}:
+
+              {%- if p.last contains '/uploads/' -%}
+                <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+              {%- else -%}
+                {{ p.last }}
+              {%- endif -%}
+
+            </li>
+          {%- endunless -%}
+        {%- endfor -%}
+
+      </ul>
+    {%- endif -%}
+
+    <p>
+      <a aria-label="Remove {{ item.variant.title }}" href="/cart/change?line={{ forloop.index }}&amp;quantity=0">Remove</a>
+    </p>
+  {%- endfor -%}
+
+  <input type="submit" name="checkout" value="Checkout">
+</form>
+
+{%- else -%}
+  <p>The cart is empty. <a href="/collections/all">Continue shopping</a></p>
+{%- endif -%}
+
+{%- endcomment -%}

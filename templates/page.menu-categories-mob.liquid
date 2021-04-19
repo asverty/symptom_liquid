@@ -4,9 +4,8 @@
   <a href="/index">
     <div class="fake-logo"></div>
   </a>
-  <button class="sub-menu-button">Меню</button>
+  <a href="javascript:history.back()" class="sub-menu-button">Меню</a>
 </div>
-
 
 <div class="main">
   <h2 class="page-heading">Категории:</h2>
@@ -22,10 +21,9 @@
   <ul class="categorys-list">
     <li class="categorys-list-element"><a href="/collections/парфюмерия" class="categorys-link">Духи</a></li>
     <li class="categorys-list-element"><a href="/collections/парфюм" class="categorys-link">Твёрдые духи</a></li>
-    <li class="categorys-list-element"><a href="/collections/одежда" class="categorys-link">Одежда</a></li>
     <li class="categorys-list-element"><a href="/collections/головные-уборы" class="categorys-link">Головные уборы</a></li>
     <li class="categorys-list-element"><a href="/collections/керамика" class="categorys-link">Керамика</a></li>
   </ul>
 </div>
 
-{{ 'categories-menu-mob.js' | asset_url | script_tag }}
+{{ 'menu-mob.js' | asset_url | script_tag }}

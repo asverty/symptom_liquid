@@ -9,6 +9,7 @@ const headerBrandsButton = document.querySelector('#header-brands-button');
 const headerCategoriesButton = document.querySelector('#header-categories-button');
 const headerSubscribeButton = document.querySelector('#header-subscribe-button');
 const headerLogInButton = document.querySelector('#header-login-button');
+const headerRegisterButton = document.querySelector('#header-register-button');
 const headerFinderButton = document.querySelector('#header-finder-button');
 const headerCartButton = document.querySelector('#header-cart-button');
 
@@ -17,6 +18,7 @@ const brandsOutline = document.querySelector('#brands-outline');
 const categoriesOutline = document.querySelector('#categories-outline');
 const subscribeOutline = document.querySelector('#subscribe-outline');
 const logInOutline = document.querySelector('#login-outline');
+const registerOutline = document.querySelector('#register-outline');
 const finderOutline = document.querySelector('#finder-outline');
 const cartOutline = document.querySelector('#cart-outline');
 
@@ -24,10 +26,15 @@ const menus = document.querySelectorAll('.menu');
 const brandsMenu = document.querySelector('#brands-menu');
 const categoriesMenu = document.querySelector('#categories-menu');
 const finderMenu = document.querySelector('#finder-menu');
+const menu = document.querySelector('.menu-popup');
+const menuButton = document.querySelector('.menu-button');
+const closeButton = document.querySelector('.menu-close-button');
+
 
 const forms = document.querySelectorAll('.form');
 const subscribeForm = document.querySelector('#subscribe-form');
 const logInForm = document.querySelector('#login-form');
+const registerForm = document.querySelector('#register-form');
 const signInButton = document.querySelector('#signin-button');
 const recoveryButton = document.querySelector('#recovery-button');
 const signInForm = document.querySelector('#signin-form');
@@ -38,6 +45,7 @@ function headerTurnsBlack() {
 		headerLogo.classList.remove('header__logo_white');
 		buttons.forEach(button => button.classList.remove('header__button_white'));
 		finderOutline.classList.remove('header__button-outline_white');
+		registerOutline.classList.remove('header__button-outline_white');
 		cartOutline.classList.remove('header__button-outline_white');
 	}
 };
@@ -47,6 +55,7 @@ function headerTurnsWhite() {
 		headerLogo.classList.add('header__logo_white');
 		buttons.forEach(button => button.classList.add('header__button_white'));
 		finderOutline.classList.add('header__button-outline_white');
+		registerOutline.classList.add('header__button-outline_white');
 		cartOutline.classList.add('header__button-outline_white');
 	}
 };
@@ -92,7 +101,7 @@ if (headerCategoriesButton) {
 
 if (headerSubscribeButton) {
 	headerSubscribeButton.addEventListener('click', () => {
-		hideAllPopups();
+		hideAllPopups(); 
 		showOutline(subscribeOutline);
 		showPopup(subscribeForm, 'form_hidden');
 	});
@@ -103,6 +112,13 @@ if (headerLogInButton) {
 		hideAllPopups();
 		showOutline(logInOutline);
 		showPopup(logInForm, 'form_hidden');
+	});
+};
+
+if (headerRegisterButton) {
+	headerRegisterButton.addEventListener('click', () => {
+		hideAllOutlines();
+		showOutline(registerOutline);
 	});
 };
 
@@ -150,7 +166,7 @@ if (main) {
 			|| (!categoriesMenu.classList.contains('menu_hidden'))
 			|| (!finderMenu.classList.contains('menu_hidden'))
 			|| (!subscribeForm.classList.contains('form_hidden'))
-			|| (!logInForm.classList.contains('form_hidden'))
+			|| (logInForm && !logInForm.classList.contains('form_hidden'))
 			|| (!signInForm.classList.contains('form_hidden'))
 			|| (!passwordRecoveryForm.classList.contains('form_hidden'))) {
 			event.preventDefault();

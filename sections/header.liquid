@@ -1,5 +1,11 @@
+{% assign isBlackTheme = '' %}
+
+{% if template != 'index' %}
+  {% assign isBlackTheme = 'header--black' %}
+{% endif %}
+
 <div class="mobileHide">
-  <header class="header header_two-colored">
+  <header class="header {{isBlackTheme}} header_two-colored">
     <div class="header__fraction">
       <a id="header-logo" class="header__logo header__logo_white"href="/index"></a>
     </div>
@@ -14,35 +20,40 @@
       </button>
     </div>
     <div class="header__fraction">
-      <button id="header-subscribe-button" class="header__button header__button_white" type='button'>
+      <button id="header-subscribe-button" class="header__button header__button_white" type="button">
         <span id="subscribe-outline" class="header__button-outline header__button-outline_hidden"></span>
         ПОДПИСАТЬСЯ
-      </button>
+      </button> 
     </div>
     <div class="header__fraction">
-      <button id="header-login-button" class="header__button header__button_login header__button_white" type='button'>
+      <a id="header-login-button" class="header__button header__button_login header__button_white" href="/account/login">
         <span id="login-outline" class="header__button-outline header__button-outline_hidden"></span>
-        ВОЙТИ
-      </button>
+        ПРОФИЛЬ
+      </a>
+      <a id="header-register-button" class="header__button header__button_register header__button_white" href="/account/register">
+        <span id="register-outline" class="header__button-outline header__button-outline_hidden"></span>
+        РЕГИСТРАЦИЯ
+      </a>
       <button id="header-finder-button" class="header__button  header__button_white" type='button'>
         <span id="finder-outline" class="header__button-outline header__button-outline_hidden"></span>
         ПОИСК
       </button>
-      <a id="header-cart-button" class="header__button header__button_cart header__button_white" href="/cart">
+      <a id="header-cart-button" class="header__button header__button_cart header__button_white" href="/cart" data-cart-view="data-cart-view">
         <span id="cart-outline" class="header__button-outline header__button-outline_white header__button-outline_hidden"></span>
-        КОРЗИНА({{ cart.item_count | prepend: '0' }})
-      </a>
+        КОРЗИНА
+        (<span class='cart-count' rv-show="cart.item_count | < 10" rv-text="cart.item_count | prepend '0'"></span><span class='cart-count' rv-show="cart.item_count | >= 10" rv-text="cart.item_count"></span>)
+      </a> 
     </div>
-  </header>
+  </header> 
 </div>
 
 <div class="mobileShow">
-  <header class="header">
+  <div class="header">
   <a href="/index">
     <div class="logo"></div>
   </a>
-  <button class="menu-button">Меню</button>
-  </header>
+  <button class="menu-button sub-menu-button">Меню</button>
+  </div>
   <div class="menu-popup menu-popup_hidden">
     <div class="fake-header">
       <a href="/index">
@@ -55,13 +66,21 @@
         <li class="menu-list-element"><a class="menu-link" href="/pages/menu-brands-mob">Бренды</a></li>
         <li class="menu-list-element"><a class="menu-link" href="/pages/menu-categories-mob">Категории</a></li>
       </ul>
-      <ul class="menu-list">
-        <li class="menu-list-element"><a class="menu-link" href="./pages/log_in/log_in.html">Войти</a></li>
-        <li class="menu-list-element"><a class="menu-link" href="./pages/wishes/wishes.html">Поиск</a></li>
-        <li class="menu-list-element"><a class="menu-link" href="/cart">Корзина({{ cart.item_count | prepend: '0' }})</a></li>
+      <ul class="menu-list"> 
+        <li class="menu-list-element"><a class="menu-link" href="/account/register">Регистрация</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/account/login">Профиль</a></li>
+        <li class="menu-list-element">
+          <li class="menu-list-element"><a class="menu-link" href="/search?q=">ПОИСК</a></li> 
+        </li>
+        <li class="menu-list-element" data-cart-view="data-cart-view"> 
+          <a class="menu-link" href="/cart">
+            КОРЗИНА
+            (<span class='cart-count' rv-show="cart.item_count | < 10" rv-text="cart.item_count | prepend '0'"></span><span class='cart-count' rv-show="cart.item_count | >= 10" rv-text="cart.item_count"></span>)
+          </a> 
+        </li>
       </ul>
       <ul class="menu-list">
-        <li class="menu-list-element"><a class="menu-link" href="#">Подписаться</a></li>
+        <li class="menu-list-element"><a class="menu-link" href="/pages/subscribe">Подписаться</a></li>
         <li class="menu-list-element"><a class="menu-link" href="/pages/about-us">О нас</a></li>
       </ul>
     </nav>
@@ -76,9 +95,6 @@
 
 <!-- FORM: SUBSCRIBE -->
 {% render 'form-subscribe' %}
-
-<!-- FORM: LOG IN -->
-{% render 'form-log-in' %}
 
 <!-- FORM: SIGN IN -->
 {% render 'form-sigh-in' %}

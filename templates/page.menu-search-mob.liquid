@@ -1,0 +1,26 @@
+{% paginate search.results by 18 %}
+
+  <div class="text-page text-page_brand">
+    <form action="/search" method="get" role="search">
+      <input type="search" name="q" value="{{ search.terms | escape }}" class="search__result" style="text-transform: uppercase;">
+    </form>
+  </div>
+
+  <div class="grid-container">
+    {% if search.performed %}
+      {% for product in search.results %}
+        {% assign featured = product %}
+          <div class="grid__item {{grid_item_width}}">
+            {% include 'product-grid-item' %}
+          </div>
+      {% else %}
+        <span class="search-noresult__text">Мы&nbsp;ничего&nbsp;не&nbsp;нашли:&nbsp;(</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    {% include 'pagination', paginate: paginate %}
+  {% endif %}
+
+{% endpaginate %}

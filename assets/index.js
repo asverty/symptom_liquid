@@ -1,95 +1,37 @@
 // FULLPAGE.JS
 
+const numberOfSections =  document.querySelectorAll('#fullpage .section').length;
 const counter = document.querySelector('.counter');
-const numberOfSections = Array.from(document.querySelectorAll('.section')).length;
 
-const myFullpage = new fullpage('#fullpage', {
-	licenseKey: '035BCCB5-F4C94A55-B766CB96-94A4230B',
+const updateCounter = () => {
+	const element = document.querySelector('.section.active');
+	const activeIndex = Array.from(element.parentNode.children).indexOf(element) + 1;
 
-	//Navigation
-	menu: '#menu',
-	lockAnchors: false,
-	anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'],
-	navigation: false,
-	navigationPosition: 'right',
-	navigationTooltips: ['firstSlide', 'secondSlide', 'thirdSlide', 'fourthSlide'],
-	showActiveTooltip: true,
-	slidesNavigation: false,
-	slidesNavPosition: 'bottom',
+	counter.textContent = `${activeIndex}/${numberOfSections}`;
+}
 
-	//Scrolling
-	css3: true,
-	scrollingSpeed: 700,
-	autoScrolling: true,
-	fitToSection: true,
-	fitToSectionDelay: 1000,
-	scrollBar: false,
-	easing: 'easeInOutCubic',
-	easingcss3: 'ease',
-	loopBottom: false,
-	loopTop: false,
-	loopHorizontal: true,
-	continuousVertical: false,
-	continuousHorizontal: false,
-	scrollHorizontally: false,
-	interlockedSlides: false,
-	dragAndMove: false,
-	offsetSections: false,
-	resetSliders: false,
-	fadingEffect: false,
-	normalScrollElements: '#element1, .element2',
-	scrollOverflow: false,
-	scrollOverflowReset: false,
-	scrollOverflowOptions: null,
-	touchSensitivity: 15,
-	bigSectionsDestination: null,
+$(document).ready(() => {
+	const options = {
+		menu: '#menu',
+		anchors: ['firstPage', 'secondPage', 'thirdPage', 'fourthPage'],
+        direction: 'vertical',
+        verticalCentered: true,
+        sectionsColor: ['#FAFAFA', '#FAFAFA', '#FAFAFA', '#FAFAFA'],
+        scrollingSpeed: 700,
+        easing: 'swing',
+        loopBottom: false,
+        loopTop: false,
+        css3: true,
+        touchSensitivity: 5,
+        keyboardScrolling: true,
+        sectionSelector: '.section',
+        animateAnchor: true,
+		afterLoad: updateCounter,
+		afterRender: updateCounter,
+	};
 
-	//Accessibility
-	keyboardScrolling: true,
-	animateAnchor: true,
-	recordHistory: true,
-
-	//Design
-	controlArrows: false,
-	verticalCentered: true,
-	sectionsColor: ['#FAFAFA', '#FAFAFA', '#FAFAFA', '#FAFAFA'],
-	paddingTop: '0',
-	paddingBottom: '0',
-	fixedElements: '#header, .footer',
-	responsiveWidth: 0,
-	responsiveHeight: 0,
-	responsiveSlides: false,
-	parallax: false,
-	parallaxOptions: { type: 'reveal', percentage: 62, property: 'translate' },
-	cards: false,
-	cardsOptions: { perspective: 100, fadeContent: true, fadeBackground: true },
-
-	//Custom selectors
-	sectionSelector: '.section',
-	slideSelector: '.slide',
-
-	lazyLoading: true,
-
-	//events
-	onLeave: function (origin, destination, direction) {
-		counter.textContent = `${destination.index + 1}/${numberOfSections}`;
-	},
-	afterLoad: function (origin, destination, direction) { },
-	afterRender: function () { },
-	afterResize: function (width, height) { },
-	afterReBuild: function () { },
-	afterResponsive: function (isResponsive) { },
-	afterSlideLoad: function (section, origin, destination, direction) { },
-	onSlideLeave: function (section, origin, destination, direction) { }
+	const res = $('#fullpage').pagepiling(options);
 });
-
-if(counter){
-	counter.textContent = `1/${numberOfSections}`;
-};
-
-
-
-
 
 // FOOTER
 
@@ -104,29 +46,26 @@ header.addEventListener('click', hideFooter);
 
 function showFooter() {
 	footer.classList.remove('footer_hidden');
-	myFullpage.setAllowScrolling(false, 'up');
-	myFullpage.setKeyboardScrolling(false, 'up');
 };
 
 function hideFooter() {
 	footer.classList.add('footer_hidden');
-	setTimeout(() => {
-		myFullpage.setAllowScrolling(true, 'up');
-		myFullpage.setKeyboardScrolling(true, 'up');
-	}, 300);
 };
-
 
 // открываем футер клавишей "вниз"
 document.addEventListener('keydown', event => {
-	let activeSection = myFullpage.getActiveSection();
-	if ((activeSection.isLast) && (event.key == 'ArrowDown')) showFooter();
-});
+	const isLastSectinActive = document.querySelector('.section.active').nextElementSibling === null
+	if(!isLastSectinActive) return;
 
-// закрываем футер клавишей "вверх" или "Esc"
-document.addEventListener('keydown', event => {
-	let activeSection = myFullpage.getActiveSection();
-	if ((activeSection.isLast) && ((event.key == 'ArrowUp') || event.key == 'Escape')) hideFooter();
+	switch(event.key){
+		case 'ArrowDown':
+			showFooter();
+		break;
+		case 'ArrowUp':
+		case 'Escape':
+			hideFooter();
+		break;
+	}
 });
 
 // открываем футер колёсиком мыши
@@ -182,14 +121,9 @@ lastSection.addEventListener('click', (event) => {
 // 	form.addEventListener('click', () => hideFooter());
 // });
 
-
-
-
-
 // COOKIES
 
 const cookiesPopup = document.querySelector('#cookies-popup');
-const cookiesCloseButton = document.querySelector('#cookies-close-button');
 const showCookies = () => cookiesPopup.classList.remove('cookies_hidden');
 const hideCookies = () => cookiesPopup.classList.add('cookies_hidden');
 
@@ -232,6 +166,8 @@ function areCookiesAccepted() {
 	}
 }
 
+const cookiesCloseButton = document.querySelector('#cookies-close-button');
+
 cookiesCloseButton.addEventListener('click', () => {
 	// 8000000 миллисекунд = 3 месяца
 	setCookie('cookiesAccepted', 'true', { 'max-age': 8000000 });
@@ -239,12 +175,3 @@ cookiesCloseButton.addEventListener('click', () => {
 });
 
 areCookiesAccepted();
-
-// MOB JS
-
-const menu = document.querySelector('.menu-popup');
-const menuButton = document.querySelector('.menu-button');
-const closeButton = document.querySelector('.menu-close-button');
-
-menuButton.addEventListener('click', () => menu.classList.toggle('menu-popup_hidden'));
-closeButton.addEventListener('click', () => menu.classList.toggle('menu-popup_hidden'));

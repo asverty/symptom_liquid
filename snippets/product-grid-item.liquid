@@ -35,7 +35,10 @@
         </span>
       {% endif %}
       <span class="grid-link__image-centered">
-        <img class="item__image" src="{{ product | img_url: '400x400' }}" alt="{{ product.title }}">
+        <div class="reveal">
+          <img class="item__image" src="{{ product | img_url: '400x400' }}" alt="{{ product.title }}">
+          <img class="hidden" src="{{ product.images.last | img_url: '400x400' }}" alt="{{ product.images.last.alt | escape }}" />
+        </div>
         {% comment %}
         {% if featured.title != '' %}
           {% unless featured.featured_image == blank %}
@@ -78,24 +81,25 @@
         {%- assign price = featured.price | money -%}
 
         {% if on_sale %}
-        <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-        <s class="grid-link__sale_price">{{ featured.compare_at_price | money }}</s>
+          <span class="grid-link__sale_price">{{ featured.compare_at_price | money }}</span>
         {% endif %}
-        {% if featured.price_varies %}
-          {{ 'products.general.from_html' | t: price: price }}
-        {% else %}
-          {% if on_sale %}
-            <span class="visually-hidden">{{ 'products.product.sale_price' | t }}</span>
-          {% else %}
-            <!-- <span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span> -->
-          {% endif %}
-          {{ price }}
 
-          {%- assign variant = featured.selected_or_first_available_variant -%}
-          {%- if variant.available and variant.unit_price_measurement -%}
-            {% include 'product-unit-price', variant: variant, wrapper_class: 'grid-link__unit-price' %}
-          {%- endif -%}
+        {{ price }}
+
+        {% if on_sale %}
+          {% assign discount = featured.price | minus: featured.compare_at_price | times: 100 | divided_by: featured.compare_at_price | remove: '.0' %}
+
+          <span class="discount">
+            ({{discount}}%)
+          </span> 
         {% endif %}
+        
+
+        {%- assign variant = featured.selected_or_first_available_variant -%}
+
+        {%- if variant.available and variant.unit_price_measurement -%}
+          {% include 'product-unit-price', variant: variant, wrapper_class: 'grid-link__unit-price' %}
+        {%- endif -%}
       </p>
     {% endif %}
   </a>

@@ -1,38 +1,38 @@
-<div class="text-page text-page_divided text-page_brand">
-  <div class="text-page__left-half">
-    <h1 class="heading brand-name">{{ collection.title }}</h1>
-  </div>
-  <div class="text-page__right-half">
-    <p class="paragraph brand-description">{{ collection.description }}</p>
-  </div>
-</div>
+{% paginate collection.products by 18 %}
 
-<!-- FILTERS -->
-<div class="filters">
-  <a id="filter-new" class="filters__filter" href="{{ collection.url }}?sort_by=created-descending">
-    <span id="filter-new-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
-    НОВИНКИ
-  </a>
-  <a id="filter-min-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-ascending">
-    <span id="filter-min-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
-    ЦЕНА&nbsp;&#8595;
-  </a>
-  <a id="filter-max-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-descending">
-    <span id="filter-max-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
-    ЦЕНА&nbsp;&#8593;
-  </a>
-</div>
+  <div class="text-page text-page_divided text-page_brand">
+    <div class="text-page__left-half">
+      <h1 class="heading brand-name">{{ collection.title }}</h1>
+    </div>
+    <div class="text-page__right-half">
+      <p class="paragraph brand-description">{{ collection.description }}</p>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <a id="filter-min-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-ascending">
+      <span id="filter-min-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
+      ЦЕНА&nbsp;&#8595;
+    </a>
+    <a id="filter-max-price" class="filters__filter" href="{{ collection.url }}?sort_by=price-descending">
+      <span id="filter-max-price-outline" class="filters__filter-outline filters__filter-outline_hidden"></span>
+      ЦЕНА&nbsp;&#8593;
+    </a>
+  </div>
 
 <!-- ITEMS CONTAINER -->
-<div class="grid-container">
-  {% paginate collection.products by 20 %}
-    {% for product in collection.products %}
-      {% assign featured = product %}
-        <div class="grid__item {{grid_item_width}}">
-          {% include 'product-grid-item' %}
-        </div>
-      {% else %}
-</div>
-
-{% endfor %}
+  <div class="grid-container">
+    {% assign collections = collections | sort: 'created-descending'%}
+         <!-- created-descending published_at-->
+      {% for product in collection.products %}
+        {% assign featured = product %}
+          <div class="grid__item {{grid_item_width}}">
+            {% include 'product-grid-item' %}
+          </div>
+      {% endfor %}
+  </div>
+  {%- if paginate.pages > 1 -%}
+    {% include 'pagination', paginate: paginate %}
+  {% endif %}
 {% endpaginate %}

@@ -1,0 +1,54 @@
+<!-- ФОРМА АВТОРИЗАЦИИ -->
+<main class="main">
+  <h2 class="page-heading">Регистрация</h2>
+  <form class="form">
+
+    <!-- инпут: E-mail -->
+    <div class="input-align">
+      <h3 class="input-name">Ваш E-mail:</h3>
+      <input class="input" type="email" required placeholder="E-mail">
+      <span class="input-error">E-mail указан неверно</span>
+    </div>
+
+    <!-- инпут: пароль -->
+    <div class="input-align">
+      <h3 class="input-name">Придумайте пароль:</h3>
+      <input class="input" type="password" required placeholder="******">
+      <span class="input-error">Слишком короткий пароль</span>
+    </div>
+
+    <!-- инпут: повтор пароля -->
+    <div class="input-align">
+      <h3 class="input-name">Повторите пароль:</h3>
+      <input class="input" type="password" required placeholder="******">
+      <span class="input-error">Пароли не совпадают</span>
+    </div>
+
+    <!-- чекбокс: подписка на обновления -->
+    <label class="label">
+      <div>
+        <input class="true-checkbox" type="checkbox" checked>
+        <div class="fake-checkbox"></div>
+      </div>
+      <p class="checkbox-description">I would like to receive information about new collections and
+        special offers by the specified email</p>
+    </label>
+
+    <!-- чекбокс: согласие с правилами -->
+    <label class="label">
+      <div>
+        <input class="true-checkbox" type="checkbox">
+        <div class="fake-checkbox"></div>
+      </div>
+      <p class="checkbox-description">By clicking the "Checkout" button you consent to the processing of your personal
+        data</p>
+    </label>
+
+    <!-- кнопки -->
+    <div class="buttons-align">
+      <button class="button-black">Регистрация</button>
+      <a href="../log_in/log_in.html" class="button-white">Вход</a>
+    </div>
+
+  </form>
+</main>

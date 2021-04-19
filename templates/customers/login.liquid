@@ -1,0 +1,73 @@
+<!-- /templates/customers/login.liquid -->
+<div class="customer-form">
+
+  {%- assign formId = 'LoginForm' -%}
+  {% form 'customer_login', novalidate: 'novalidate' %}
+  {% include 'form-status', form: form, form_id: formId %} 
+
+    <!-- {%- if form.errors -%}
+      <div class="form-message form-message--error">
+        <h2 class="h3 form-message__title " tabindex="-1" data-form-status>{{ 'contact.form.error_heading' | t }}</h2>
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%} -->
+
+    <!-- <div id="login-form" class="form form_hidden" novalidate> -->
+      <h3 class="heading heading_form">Вход</h3>
+
+      <div class="form__grid">
+        <div class="form__fraction form__left-half">
+          <div class="input input_form">
+            <label class="input__heading" for="CustomerEmail">E-mail:</label>
+            <input
+              type="email"
+              name="customer[email]"
+              id="CustomerEmail"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              class="input__field"
+              placeholder="yourmail@mail.com"
+              required
+              {%- if form.errors contains 'form' -%}
+                class="input--error"
+                aria-invalid="true"
+              {%- endif -%}
+              >
+              <span id="login-email-error" class="input__error"></span>
+          </div>
+          <!-- <a href="/account/register" id="signin-button" class="hollow-button hollow-button_" type='button'>Регистрация</a href="account/register"> -->
+        </div>
+
+        {% if form.password_needed %}
+          <div class="form__fraction form__right-half">
+            <div class="input input_form">
+              <label for="CustomerPassword" class="input__heading">Пароль:</label>
+              <input
+                type="password"
+                value=""
+                name="customer[password]"
+                id="CustomerPassword"
+                class="input__field"
+                placeholder="***********"
+                required
+                {%- if form.errors contains 'form' -%}
+                  class="input--error"
+                  aria-invalid="true"
+                {%- endif -%}
+              >
+              <span id="login-password-error" class="input__error"></span>
+            </div>
+        {% endif %}
+
+          <button class="black-button submit-button" type="submit" value="{{ 'customer.login.sign_in' | t }}">Вход</button>
+          <div class="form__recovery-button">
+            {% if form.password_needed %}
+            <a href="/account/reset_password" id="RecoverPassword" id="recovery-button" class="form__recovery-button" type='button'>Забыли пароль?</a>
+            {% endif %}
+          </div>
+
+        </div>
+      </div>
+  {% endform %}
+</div>

@@ -1,37 +1,110 @@
 <!-- /templates/customers/account.liquid -->
-<form class="profile">
-    <div class="profile__left-half">
-      <div class="profile__alignment">
-        <div class="input input_profile">
-          <h4 class="input__heading">Имя:</h4>
-          <input class="input__field" type="text" placeholder="Ваше имя" value="Иван" readonly>
-          <span class="input__error">Имя слишком короткое</span>
-        </div>
-        <div class="input input_profile">
-          <h4 class="input__heading">Фамилия:</h4>
-          <input class="input__field" type="text" placeholder="Ваша фамилия" value="Петров" readonly>
-          <span class="input__error">Фамилия слишком короткая</span>
-        </div>
-      </div>
-      <div class="input input_profile-wide">
-        <h4 class="input__heading">E-mail:</h4>
-        <input class="input__field" type="email" placeholder="Ваш E-mail" value="ivanmail@gmail.com" readonly>
-        <span class="input__error">Некорректный адрес почты</span>
-      </div>
-      <button class="hollow-button hollow-button_profile">Выйти</button>
-    </div>
+<h1 class="heading heading_account">{{ customer.name }}</h1>
+<!-- <div class="filters">
+  <label class="filters__filter">
+    <input id="switcher-profile" class="filters__true-radio" type="radio" name="switcher" checked>
+    <span class="filters__fake-radio">Профиль</span>
+  </label>
+  <label class="filters__filter">
+    <input id="switcher-orders" class="filters__true-radio" type="radio" name="switcher">
+    <span class="filters__fake-radio">Заказы</span>
+  </label>
+</div> -->
 
-    <div class="profile__right-half">
-      <div class="input input_profile-wide">
-        <h4 class="input__heading">Имя пользователя:</h4>
-        <input class="input__field" type="text" placeholder="Ваше имя пользователя" value="Nagibator-2000" readonly>
-        <span class="input__error">Имя слишком короткое</span>
+<form id="profile" class="profile">
+  <div class="profile__left-half">
+    <div class="profile__alignment">
+      <div class="input input_profile">
+        <h4 class="input__heading">Имя:</h4>
+        <input id="profile-name" name="profile-name" class="input__field" type="text" value="{{ customer.first_name }}">
+        <span id="profile-name-error" class="input__error"></span>
       </div>
-      <div class="input input_profile-wide">
-        <h4 class="input__heading">Пароль:</h4>
-        <input class="input__field" type="password" placeholder="Ваш пароль" value="123456789" readonly>
-        <span class="input__error">Введите пароль</span>
-      </div>
-      <button class="black-button">Изменить</button>
     </div>
-  </form>
+    <div class="input input_profile-wide">
+      <h4 class="input__heading">E-mail:</h4>
+      <input id="profile-email" name="profile-email" class="input__field" type="email" placeholder="Ваш E-mail" value="{{ customer.email }}">
+      <span id="profile-email-error" class="input__error"></span>
+    </div>
+    <button class="hollow-button hollow-button_profile-exit" type="button">{{ 'layout.customer.log_out' | t | customer_logout_link }}</button>
+  </div>
+
+  <div class="profile__right-half">
+    <div class="input input_profile">
+      <h4 class="input__heading">Фамилия:</h4>
+      <input id="profile-surname" name="profile-surname" class="input__field" type="text" value="{{ customer.last_name }}">
+      <span id="profile-surname-error" class="input__error"></span>
+    </div>
+    <!-- <div class="input input_profile-wide">
+      <h4 class="input__heading">Имя пользователя:</h4>
+      <input id="profile-nickname" name="profile-nickname" class="input__field" type="text" placeholder="Ваше имя пользователя" value="" minlength="2" maxlength="20" readonly required>
+      <span id="profile-nickname-error" class="input__error"></span>
+    </div> -->
+    <div class="input input_profile-wide">
+      <h4 class="input__heading">Адрес:</h4>
+      <input id="profile-password" name="profile-password" class="input__field" type="text" value="{{ customer.default_address }}">
+      <!-- <div class="grid__item myaccount__account-details">
+        <h2>{{ 'customer.account.details' | t }}</h2>
+
+        {{ customer.default_address | format_address }}
+
+        <p><a href="{{ routes.account_addresses_url }}" class="btn btn--small">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+      </div> -->
+    </div>
+    <!-- <button id="profile-edit-button" class="hollow-button hollow-button_profile-edit" type="button">Изменить</button>
+    <button id="profile-submit-button" class="black-button black-button_hidden submit-button" type="submit">Сохранить</button> -->
+  </div>
+</form>
+
+<section id="orders" class="acc-orders acc-orders_hidden">
+  <div class="acc-order">
+    {% paginate customer.orders by 3 %}
+      {% if customer.orders.size != 0 %}
+        {% for order in customer.orders %}
+          <div class="acc-order__left-half">
+            <div class="acc-order__cell">
+              <h4 class="acc-order__cell-name">Номер заказа:</h4>
+              <span class="acc-order__cell-data">{{ 'customer.orders.order_number' | t}}</span>
+            </div>
+            <div class="acc-order__cell">
+              <h4 class="acc-order__cell-name">Дата:</h4>
+              <span class="acc-order__cell-data">{{ 'customer.orders.date' | t }}</span>
+            </div>
+          </div>
+          <div class="acc-order__right-half">
+            <div class="acc-order__cell">
+              <h4 class="acc-order__cell-name">Статус:</h4>
+              <span class="acc-order__cell-data">{{ 'customer.orders.fulfillment_status' | t }}</span>
+            </div>
+            <div class="acc-order__cell acc-order__cell_wide">
+              <h4 class="acc-order__cell-name">Сумма покупки:</h4>
+              <span class="acc-order__cell-data">{{ 'customer.orders.total' | t }}</span>
+            </div>
+          </div>
+        {% endfor %}
+        <!-- <tbody>
+          {% for order in customer.orders %}
+            <tr>
+              <th data-label="{{ 'customer.orders.order_number' | t }}" scope="row">
+                <a href="{{ order.customer_url }}" class="btn btn--secondary btn--small" aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}">{{ order.name }}</a>
+              </th>
+              <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+              <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+              <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+              <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody> -->
+
+      {% else %}
+
+        <h2 class="heading">{{ 'customer.orders.none' | t }}</h2>
+
+      {% endif %}
+      {%- if paginate.pages > 1 -%}
+        {% include 'pagination', paginate: paginate %}
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{{ 'account.js' | asset_url | script_tag }}

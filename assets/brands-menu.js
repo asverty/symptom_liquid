@@ -73,11 +73,6 @@ const brandsList = [
 		menuImage: '#image-for-perfume-opera',
 	},
 	{
-		name: 'Sands',
-		menuLink: '#link-to-sands',
-		menuImage: '#image-for-sands',
-	},
-	{
 		name: 'Sub Rosa',
 		menuLink: '#link-to-sub-rosa',
 		menuImage: '#image-for-sub-rosa',

@@ -4,7 +4,7 @@
   <a href="/index">
     <div class="fake-logo"></div>
   </a>
-  <button class="sub-menu-button">Меню</button>
+  <a href="javascript:history.back()" class="sub-menu-button">Меню</a>
 </div>
 
 <div class="main">
@@ -27,9 +27,8 @@
     <li class="brands-list-element"><a href="/collections/perfume-opera" class="brands-link">Perfume Opera</a></li>
     <li class="brands-list-element"><a href="/collections/veta-perfume" class="brands-link">Veta Perfume</a></li>
     <li class="brands-list-element"><a href="/collections/behurr" class="brands-link">Behurr</a></li>
-    <li class="brands-list-element"><a href="/collections/sands" class="brands-link">Sands</a></li>
     <li class="brands-list-element"><a href="/collections/malkenza" class="brands-link">Malkenza</a></li>
   </ul>
 </div>
 
-{{ 'brands-menu-mob.js' | asset_url | script_tag }}
+{{ 'menu-mob.js' | asset_url | script_tag }}

@@ -1,1 +1,115 @@
 <!-- /templates/customers/register.liquid -->
+
+<div class="customer-form">
+
+{%- assign formId = 'RegisterForm' -%}
+{% form 'create_customer', id: formId %} 
+{% include 'form-status', form: form, form_id: formId %}
+
+  <h3 class="heading heading_form">Регистрация</h3>
+
+  <div class="form__grid">
+    <div class="form__left-half">
+      <div class="input input_form"> 
+        <label class="input__heading" for="{{ formId }}-FirstName">Имя:</label>
+        <input type="text" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name"
+        class="input__field" minlength="2" maxlength="20" placeholder="Ваше имя" required>
+        <span id="order-name-error" class="input__error input__error_s"></span>
+      </div>
+
+      <div class="input input_form">
+        <label class="input__heading" for="{{ formId }}-email">E-mail:</label>
+        <input
+        type="email"
+        name="customer[email]"
+        id="{{ formId }}-email"
+        class="input__field {% if form.errors contains 'email' %} input--error{% endif %}"
+        placeholder="yourmail@mail.com"
+        required
+        {% if form.email %} value="{{ form.email }}"{% endif %}
+        autocorrect="off"
+        autocapitalize="off"
+        autocomplete="email"
+        aria-required="true"
+        {%- if form.errors contains 'email' -%}
+        class="input--error"
+        aria-invalid="true"
+        aria-describedby="{{ formId }}-email-error"
+        {%- endif -%}
+        >
+        {%- if form.errors contains 'email' -%}
+          <span id="{{ formId }}-email-error" class="input-error-message">
+          <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
+          {% include 'icon-error' %}
+          <span>{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+          </span>
+        {%- endif -%}
+          <span id="signin-email-error" class="input__error"></span>
+      </div>
+
+      <label class="checkbox checkbox_form">
+        <div>
+        <input id="signin-mailing" name="signin-mailing" class="checkbox__true-checkbox" type="checkbox"
+            value="subscribed" checked>
+        <div class="checkbox__fake-checkbox"></div>
+        </div>
+        <p class="checkbox__description">
+          Я хочу получать информацию о новых коллекциях и специальных предложениях на
+          указанный адрес электронной почты
+        </p>
+      </label>
+    </div>
+
+    <div class="form__right-half">
+      <div class="input input_form">
+        <label class="input__heading" for="{{ formId }}-LastName">Фамилия:</label>
+        <input type="text" name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name"
+        class="input__field" type="password" minlength="2" maxlength="24" placeholder="Ваша фамилия" required>
+        <span id="signin-password-error" class="input__error"></span>
+      </div>
+      <div class="input input_form">
+        <label class="input__heading" for="{{ formId }}-password">Пароль:</label>
+        <input
+        type="password"
+        name="customer[password]"
+        id="{{ formId }}-password"
+        placeholder="***********"
+        minlength="6"
+        maxlength="24"
+        required
+        class="input__field {% if form.errors contains 'password' %} input--error{% endif %}"
+        aria-required="true"
+        {%- if form.errors contains 'password' -%}
+        class="input--error"
+        aria-invalid="true"
+        aria-describedby="{{ formId }}-password-error"
+        {%- endif -%}
+        >
+        {%- if form.errors contains 'password' -%}
+          <span id="{{ formId}}-password-error" class="input-error-message">
+          {% include 'icon-error' %}
+          <span>{{ form.errors.translated_fields['password'] | capitalize }} {{ form.errors.messages['password'] }}.</span>
+          </span>
+        {%- endif -%}
+        <span id="signin-password-error" class="input__error"></span>
+      </div>
+      <label class="checkbox checkbox_form">
+        <div>
+        <input id="signin-rules-agreement" name="signin-rules-agreement"
+          class="checkbox__true-checkbox checkbox__true-checkbox_required" type="checkbox" value="agreed" checked
+          required>
+        <div class="checkbox__fake-checkbox"></div>
+        </div>
+        <p class="checkbox__description">
+        Нажимая кнопку «Регистрация», вы даете согласие на обработку ваших
+        персональных данных согласно положениям <a class="paragraph__link" href="/pages/confidential"> по ссылке.</a></p>
+      </label>
+
+      <button class="black-button submit-button" type="submit" value="{{ 'customer.register.submit' | t }}">Регистрация</button>
+
+    </div>
+  </div>
+  {% endform %}
+</div> 
+
+{{ 'validation.js' | asset_url | script_tag }}

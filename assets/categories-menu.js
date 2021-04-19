@@ -48,11 +48,6 @@ const categoriesList = [
 		menuImage: '#image-for-headwear',
 	},
 	{
-		name: 'Одежда',
-		menuLink: '#link-to-clothes',
-		menuImage: '#image-for-clothes',
-	},
-	{
 		name: 'Фероньерки',
 		menuLink: '#link-to-feronniere',
 		menuImage: '#image-for-feronniere',

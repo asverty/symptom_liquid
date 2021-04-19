@@ -1,4 +1,5 @@
 {% form 'create_customer' %}
+	{{ form.errors | default_errors }}
 	<div id="signin-form" class="form form_hidden" novalidate>
 		<h3 class="heading heading_form">Регистрация</h3>
 		<div class="form__grid">

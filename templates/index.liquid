@@ -1,19 +1,19 @@
 {{ content_for_index }}
 
-<main id="fullpage">
+<div id="fullpage">
 
-  <section class="section section_1 active">
+  <div class="section active section_1">
     <a href="/collections/новинки">
-      <div class="section__info section-info">
+      <div class="section__info">
         <h2 class="section__heading">НОВИНКИ</h2>
         <p class="section__paragraph section__paragraph_bottom section-text">
           взгляните на наши новые украшения
         </p>
       </div>
     </a>
-  </section>
+  </div>
 
-  <section class="section section_2">
+  <div class="section section_2">
     <a href="/collections/скидки">
       <div class="section__info section__info_flex-end">
         <div class="section__heading-alignment">
@@ -24,21 +24,9 @@
         </div>
       </div>
     </a>
-  </section>
+  </div>
 
-{% comment %}
-  <section class="section section_3">
-    <a href="/collections/8-марта">
-      <div class="section__info">
-        <h2 class="section__heading">8 МАРТА</h2>
-        <p class="section__paragraph section__paragraph_3">наша подборка украшений к восьмому дню весны</p>
-        <!-- <p class="section__paragraph section__paragraph_bottom"></p> -->
-      </div>
-    </a>
-  </section>
-{% endcomment %}
-
-  <section class="section section_3">
+  <div class="section section_3">
     <a href="/products/сертификат-свободного-номинала">
       <div class="section__info">
         <h2 class="section__heading">Подарочный сертификат</h2>
@@ -47,8 +35,19 @@
         </p>
       </div>
     </a>
-  </section>
-</main>
+  </div>
+
+  <div class="section section_4">
+    <a href="/pages/contacts">
+      <div class="section__info">
+        <h2 class="section__heading">МАРОСЕЙКА 15</h2>
+        <p class="section__paragraph section__paragraph_3">Наш магазин обрёл новое место силы</p>
+        <!-- <p class="section__paragraph section__paragraph_bottom"></p> -->
+      </div>
+    </a>
+  </div>
+
+</div>
 
 {% section 'counter' %}
 
@@ -65,5 +64,3 @@
   </p>
   <button id="cookies-close-button" class="cookies__close-button"></button>
 </div>
-
-<!-- {{ 'index-mob.js' | asset_url | script_tag }} -->

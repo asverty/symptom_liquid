@@ -1,4 +1,15 @@
+{% assign on_sale = false %}
+
+{% if product.compare_at_price > product.price %}
+  {% assign on_sale = true %}
+{% endif %}
+
+{% if on_sale %}
+  {% assign discount = product.price | minus: product.compare_at_price | times: 100 | divided_by: product.compare_at_price | remove: '.0' %}
+{% endif %} 
+
 <div class="item">
+
   <div class="item__info">
     <button class="back-button">
       <a href="javascript:history.back()" class="back-button__text">Назад</a>
@@ -7,7 +18,16 @@
       <h1 class="item__brand">{{ product.title }}</h1>
     </div>
     <div class="item__info-grid">
-      <span class="item__price">{{ product.price | money }}</span>
+      <div class="item__price item__price--old">{{ product.compare_at_price | money }}</div>
+      <div class="item__price {% if on_sale %}item__price--sale{% endif %}">
+        {{ product.price | money }}
+
+        {% if on_sale %} 
+          <span class="discount discount--sale">
+            ({{discount}}%)
+          </span>
+        {% endif %}
+      </div>
     </div>
     <div class="item__info-grid">
       <div class="item__description">{{ product.description }}</div>
@@ -15,122 +35,127 @@
   </div>
 
   <div class="item__product-wrapper">
-    <img class="item__image" src="{{ product | img_url: '500x500' }}" alt="{{ product.title }}">
-      {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
-      {% for image in product.images %}
-        <div class="product-single__photo product__photo-container product__photo-container-{{ section.id }} js{% unless image == featured_image %} hide{% endunless %}"
-             id="ProductPhoto"
-             style="max-width: {% include 'image-width' with image: image, width: 480 %}px;"
-             data-image-id="{{ image.id }}">
-          <!-- <a href="{{ image | img_url: '700x700' }}"
-             class="js-modal-open-product-modal product__photo-wrapper product__photo-wrapper-{{ section.id }}"
-             style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;">
-            {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
-          </a> -->
-        </div>
-        {%- endfor -%}
+<!--
+    <noscript>
+    <a href="{{ featured_image | img_url: '700x700' }}">
+      <img src="{{ featured_image | img_url: product_image_size }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg-{{ section.id }}">
+    </a>
+    </noscript> -->
 
-        <!-- <noscript>
-        <a href="{{ featured_image | img_url: '700x700' }}">
-          <img src="{{ featured_image | img_url: product_image_size }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg-{{ section.id }}">
-        </a>
-        </noscript> -->
+    <div class="item__image-product fade">
+      {% if product.images.size > 0 %}
 
-  {% if product.images.size > 1 %}
-    <div class="photos__item photos__item--thumbs">
-      <div class="product-single__thumbnails product-single__thumbnails-{{ section.id }}{% unless product.images.size > 2 %} product-single__thumbnails--static{% endunless %}">
-        {% for image in product.images limit:4 %}
-          <div class="product-single__thumbnail-item product-single__thumbnail-item-{{ section.id }}{% if image == featured_image %} is-active{% endif %}" data-image-id="{{ image.id }}">
-            <a href="{{ image.src | img_url: product_image_size }}" data-zoom="{{ image.src | img_url: '1024x1024' }}" class="product-single__thumbnail product-single__thumbnail-{{ section.id }}">
-              <img src="{{ image.src | img_url: '160x160' }}" alt="{{ image.alt | escape }}">
-            </a>
-          </div>
-        {% endfor %}
-      </div>
+        {% for image in product.images %} 
+
+            <div>
+              <a href="{{ image.src | img_url: '1000x1000' }}" data-fancybox="gallery">
+                <img src="{{ image.src | img_url: '450x450' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </div>
+
+        {% endfor %} 
+
+      {% endif %}
+
     </div>
-  {% endif %}
 
-  {% unless product == empty %}
+    <div class="product-single__thumbnails">
+
+      {% if product.images.size > 0 %}
+
+        {% for image in product.images %}
+
+          <div class="product-single__thumbnail-item" data-image-id="{{ image.id }}">
+            <img src="{{ image.src | img_url: '165x165' }}" alt="{{ image.alt | escape }}">
+          </div>
+
+        {% endfor %}
+
+      {% endif %}
+
+    </div>
+  </div>
+
+  <!-- {% unless product == empty %}
     <script type="application/json" id="ProductJson-{{ section.id }}">
       {{ product | json }}
     </script>
-  {% endunless %}
-
-</div>
+  {% endunless %} -->
 
   <div class="item__order">
 
-    {% if product.title != 'Подарочный сертификат' %}
-      <h4 class="item__radio-heading">Выберите размер:</h4>
-      <!-- <p class="item__preorder-info-variants">(OS = one size)</p> -->
-    {% else %}
-      <h4 class="item__radio-heading-variants">Выберите сумму сертификата:</h4>
-      <p class="item__preorder-info-variants">(k = 1000 руб)</p>
-    {% endif %}
+    {% assign is_single = product.has_only_default_variant %}
 
-    <!-- {% if product.variant == 'Левая' %}
-      {{ 'side-left.png' | asset_img_url: 'master' }}
-      {% elsif product.variant == 'Правая' %}
-      {{ 'side-right.png' | asset_img_url: 'master' }}
-    {% endif %} -->
+    {% unless is_single %}
 
-    {% form "product", product %}
+      {% if product.title != 'Подарочный сертификат' %}
+        <h4 class="item__radio-heading">Выберите размер:</h4>
+      {% else %}
+        <h4 class="item__radio-heading-variants">Выберите сумму сертификата:</h4>
+        <p class="item__preorder-info-variants">(k = 1000 руб)</p>
+      {% endif %}
+
+    {% endunless %} 
+
     <div class="round-sizes">
+      
+      {% assign style = '' %}
+      
+      {% if is_single %}
+        {% assign style = 'style="display: none;"' %}
+      {% endif %}
+
       {% for variant in product.variants %}
         {% if variant.available %}
-          <label class="round-sizes__size">
+          <label class="round-sizes__size" {{style}}>
             <input class="round-sizes__true-radio" type="radio" name="size">
-              <span class="round-sizes__fake-radio">
-                <option
+              <div class="round-sizes__fake-radio">
+                <span
                   class="item__variants-padding"
-                  value="{{ variant.id }}">
-                    {{ variant.title }}
-                </option>
-              </span>
+                  data-value="{{ variant.id }}"
+                  data-selected="true">
+                  {{ variant.title }} 
+                </span>
+              </div>
           </label>
-        {% elsif product.has_only_default_variant %}
-          <input class="round-sizes__true-radio" type="radio" name="size">
-          <span class="round-sizes__fake-radio">
-          <option class="item__variants-padding">
-          </option>
-          OS</span>
         {% else %}
-          <label class="round-sizes__size">
+          <label class="round-sizes__size" {{style}}> 
               <span class="round-sizes__fake-radio">
-                <option
-                  class="item__variants-padding"
-                  disabled="disabled">
+                <span class="item__variants-padding">
                     {{ variant.title  }}
-                </option>
+                </span>
               </span>
           </label>
-        <!-- {% if variant.title in collection == 'Default title' %}
-          {{ variant.title | 'OS' }}
-        {% endif %} -->
         {% endif %}
-      {% endfor %}
+    {% endfor %}
     </div>
 
-{% comment %}
+    {% assign isAvaliable = false %}
+
     {% for variant in product.variants %}
-      {% if variant.available  %}
-
-      {% else %}
-        <button class="black-button" type="button"
-        >Отсутсвует</button>
+      {% if variant.available %}
+        {% assign isAvaliable = true %}
+        {% break %}
       {% endif %}
-    {% endfor %}
-{% endcomment %}
+    {% endfor %} 
 
-      <button class="black-button"{{ routes.cart_add_url }} type="button"
-      method="post" action="/cart/add" enctype="multipart/form-data"
-      >В корзину</button>
-    {% endform %}
+    <button
+      class="black-button add-to-cart {% unless isAvaliable %}add-to-cart--disabled{% endunless %}" type="submit" name="add"
+      {% unless current_variant.available %} aria-disabled="true"{% endunless %}
+      aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
+      class="btn product-form__cart-submit{% if section.settings.enable_payment_button and product.selling_plan_groups == empty %} btn--secondary-accent{% endif %}">
+      В корзину
+    </button>
 
     <p class="item__preorder-info">
-    Если размер нельзя выбрать - он отсутсвует. Но вы можете оформить предзаказ в нашем
-    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button>
-    Свяжитесь с нами, чтобы обсудить<br>все важные детали.<br>
+      Оплата заказа при получении доступна только для доставки по Москве и при самовывозе.
+    </p> 
+
+    <p class="item__preorder-info">
+    Если вы не видите размер - товар его не имеет, а если размер нельзя выбрать - он отсутсвует.<br>
+    Вы можете оформить предзаказ на отсутствующий размер в нашем
+    <button id="open_chatra_preorder" onclick="Chatra('openChat', true)">чате!</button><br>
+    Свяжитесь с нами, чтобы обсудить все важные детали.<br>
     </p>
     <!-- <button class="circle-like-button"></button> -->
     <div class="item__preorder-info">
@@ -140,5 +165,4 @@
     </div>
   </div>
 </div>
-
 

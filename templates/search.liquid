@@ -1,8 +1,13 @@
-{% paginate search.results by 120 %}
+{% paginate search.results by 18 %}
 
-  <div class="text-page text-page_divided text-page_brand">
-    <form action="/search" method="get" role="search" class="search__result">
-      <input type="search" name="q" value="{{ search.terms | escape }}" class="heading">
+  <div class="text-page text-page_brand">
+    <form action="/search" method="get" role="search">
+      <div class="input-wrapper">
+        <div class="input-wrapper__icon icon icon--search">
+          <i class="fas fa-search"></i> 
+        </div>
+        <input type="search" name="q" value="{{ search.terms | escape }}" class="search__result" placeholder="ПОИСК"> 
+      </div>
     </form>
   </div>
 
@@ -14,9 +19,13 @@
             {% include 'product-grid-item' %}
           </div>
       {% else %}
-        <span class="search-result__text">Мы&nbsp;ничего&nbsp;не&nbsp;нашли:&nbsp;(</span>
+        <span class="search-noresult__text">Мы&nbsp;ничего&nbsp;не&nbsp;нашли:&nbsp;(</span>
       {% endfor %}
     {% endif %}
-</div>
+  </div>
+
+  {%- if paginate.pages > 1 -%}
+    {% include 'pagination', paginate: paginate %}
+  {% endif %}
 
 {% endpaginate %}

@@ -1,4 +1,5 @@
 {% form 'customer_login' %}
+  {{ form.errors | default_errors }}
   <div id="login-form" class="form form_hidden" novalidate>
     <h3 class="heading heading_form">Вход</h3>
     <div class="form__grid">
@@ -9,7 +10,7 @@
           placeholder="your@dolphine.com" required>
           <span id="login-email-error" class="input__error"></span>
         </div>
-          <button id="signin-button" class="hollow-button hollow-button_" type='button'>Регистрация</button>
+          <a href="/account/register" class="hollow-button hollow-button_ buttons-align">Регистрация</a>
       </div>
       <div class="form__fraction form__right-half">
         <div class="input input_form">
@@ -18,7 +19,7 @@
           placeholder="***********" required>
           <span id="login-password-error" class="input__error"></span>
         </div>
-          <button class="black-button submit-button" type="submit">Вход</button>
+          <button class="black-button submit-button buttons-align" type="submit">Вход</button>
           <button id="recovery-button" class="form__recovery-button" type='button'>Забыли пароль?</button>
       </div>
     </div>
